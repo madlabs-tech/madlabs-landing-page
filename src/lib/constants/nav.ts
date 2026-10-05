@@ -1,6 +1,7 @@
 export const NAV_LINKS = [
 	{ href: '#services', label: 'Services' },
-	{ href: '#southeast-asia', label: 'Southeast Asia' },
+	{ href: '#lab', label: 'Try the lab' },
+	{ href: '#where-we-work', label: 'Where we work' },
 	{ href: '#products', label: 'Products' },
 	{ href: '#partners', label: 'Partners' }
 ];

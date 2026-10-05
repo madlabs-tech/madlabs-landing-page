@@ -1,7 +1,10 @@
 <script lang="ts">
 	import SectionHeader from '#lib/components/ui/SectionHeader.svelte';
 	import Tag from '#lib/components/ui/Tag.svelte';
+	import { flip } from 'svelte/animate';
+	import { scale } from 'svelte/transition';
 	import { PARTNER_GROUPS, PARTNERS, PARTNERS_SECTION } from '#lib/constants/partners.ts';
+	import { ms } from '#lib/hooks/motion.ts';
 
 	const { filterLabel, ...header } = PARTNERS_SECTION;
 
@@ -26,9 +29,9 @@
 	</div>
 
 	<ul class="grid">
-		{#each visible as partner (partner.name)}
-			<li>
-				<a class="partner" href={partner.domain ? `https://${partner.domain}` : undefined} target="_blank" rel="noopener">
+		{#each visible as partner, i (partner.name)}
+			<li animate:flip={{ duration: ms(380) }} in:scale={{ start: 0.85, duration: ms(320) }}>
+				<a class="partner reveal" style:--i={i % 5} href={partner.domain ? `https://${partner.domain}` : undefined} target="_blank" rel="noopener">
 					<span class="logo">
 						{#if partner.domain && !failed[partner.name]}
 							<!-- ponytail: favicon service as stand-in logos (as in the website kit); swap for official files in static/ when we have them. -->
@@ -94,7 +97,6 @@
 		background: var(--surface-card);
 		border: var(--border-thick) solid var(--border-default);
 		color: var(--fg-1);
-		animation: ml-pop-in var(--dur-slow) var(--ease-spring) both;
 		transition:
 			transform var(--dur-base) var(--ease-spring),
 			box-shadow var(--dur-base) var(--ease-spring),

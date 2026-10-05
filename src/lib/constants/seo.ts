@@ -1,12 +1,11 @@
-import { MARKETS } from './markets.ts';
 import { SITE } from './site.ts';
 
 export const SEO = {
-	title: 'AI & Web3 Consultants in Southeast Asia | Madlabs',
+	title: 'AI & Web3 Consultants for Teams Worldwide | Madlabs',
 	description:
-		'AI and Web3 consultants for Southeast Asia. We build AI agents, smart contracts and ZK privacy for teams in Indonesia, Singapore and beyond.',
+		'AI and Web3 consultants for teams worldwide, based in Southeast Asia. We build AI agents, smart contracts, ZK privacy and blockchain infrastructure.',
 	ogImage: '/og/madlabs.png',
-	ogImageAlt: 'Madlabs: AI & Web3 consultants for Southeast Asia'
+	ogImageAlt: 'Madlabs: AI & Web3 consultants for teams worldwide'
 };
 
 export const JSON_LD = {
@@ -18,10 +17,7 @@ export const JSON_LD = {
 	email: SITE.email,
 	description: SEO.description,
 	image: SITE.url + SEO.ogImage,
-	areaServed: [
-		{ '@type': 'Place', name: 'Southeast Asia' },
-		...MARKETS.map((name) => ({ '@type': 'Country', name }))
-	],
+	areaServed: 'Worldwide',
 	knowsAbout: [
 		'AI consulting',
 		'AI agent development',

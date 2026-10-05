@@ -1,22 +1,21 @@
 <script lang="ts">
-	import { MapPin } from '@lucide/svelte';
 	import SectionHeader from '#lib/components/ui/SectionHeader.svelte';
-	import { MARKET_POINTS, MARKETS, MARKETS_SECTION } from '#lib/constants/markets.ts';
+	import { WHERE_FACTS, WHERE_POINTS, WHERE_SECTION } from '#lib/constants/whereWeWork.ts';
 </script>
 
-<section id="southeast-asia" class="band ml-bg-dots-dark ml-on-dark" aria-labelledby="southeast-asia-title">
+<section id="where-we-work" class="band ml-bg-dots-dark ml-on-dark" aria-labelledby="where-we-work-title">
 	<div class="section container">
-		<SectionHeader id="southeast-asia-title" {...MARKETS_SECTION} />
+		<SectionHeader id="where-we-work-title" {...WHERE_SECTION} />
 
-		<ul class="markets">
-			{#each MARKETS as market (market)}
-				<li><MapPin size={16} aria-hidden="true" />{market}</li>
+		<ul class="facts reveal">
+			{#each WHERE_FACTS as fact (fact.label)}
+				<li><fact.icon size={16} aria-hidden="true" />{fact.label}</li>
 			{/each}
 		</ul>
 
 		<ul class="points">
-			{#each MARKET_POINTS as point (point.title)}
-				<li class="ml-card ml-card--glass ml-card--pad-lg">
+			{#each WHERE_POINTS as point, i (point.title)}
+				<li class="ml-card ml-card--glass ml-card--pad-lg reveal" style:--i={i}>
 					<span class="tile"><point.icon size={22} aria-hidden="true" /></span>
 					<h3 class="ml-h4">{point.title}</h3>
 					<p>{point.body}</p>
@@ -30,7 +29,7 @@
 	.band {
 		background-color: var(--slate-900);
 	}
-	.markets {
+	.facts {
 		display: flex;
 		flex-wrap: wrap;
 		gap: var(--space-2);
@@ -38,7 +37,7 @@
 		padding: 0;
 		list-style: none;
 	}
-	.markets li {
+	.facts li {
 		display: inline-flex;
 		align-items: center;
 		gap: 6px;
@@ -51,7 +50,7 @@
 		font-weight: var(--weight-semibold);
 		color: var(--slate-100);
 	}
-	.markets li :global(svg) {
+	.facts li :global(svg) {
 		color: var(--mint-300);
 	}
 	.points {

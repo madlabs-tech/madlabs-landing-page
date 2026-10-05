@@ -2,9 +2,10 @@
 <script lang="ts">
 	import type { LucideIcon } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
-	import type { HTMLAnchorAttributes } from 'svelte/elements';
+	import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
 
-	type Props = HTMLAnchorAttributes & {
+	type Props = Omit<HTMLAnchorAttributes, 'type'> &
+		Pick<HTMLButtonAttributes, 'type' | 'form' | 'disabled'> & {
 		variant?: 'primary' | 'secondary' | 'ghost' | 'ice' | 'mint' | 'danger';
 		size?: 'sm' | 'md' | 'lg';
 		block?: boolean;

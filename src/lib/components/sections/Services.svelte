@@ -9,8 +9,8 @@
 	<SectionHeader id="services-title" {...SERVICES_SECTION} />
 
 	<ul class="grid">
-		{#each SERVICES as service (service.title)}
-			<li>
+		{#each SERVICES as service, i (service.title)}
+			<li class="reveal" style:--i={i % 3}>
 				<Card variant="soft" padding="lg" class="service">
 					<div class="top">
 						<span class={['tile', service.field === 'Web3' ? 'tile--mint' : 'tile--ice']}>

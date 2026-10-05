@@ -5,7 +5,7 @@
 	let { id, eyebrow, title, intro }: Props = $props();
 </script>
 
-<div class="head">
+<div class="head reveal">
 	<p class="ml-eyebrow eyebrow">{eyebrow}</p>
 	<h2 {id} class="ml-display-3 title">{title}</h2>
 	{#if intro}<p class="ml-body-lg intro">{intro}</p>{/if}

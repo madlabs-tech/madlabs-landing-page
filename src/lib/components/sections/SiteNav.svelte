@@ -3,6 +3,7 @@
 	import Button from '#lib/components/ui/Button.svelte';
 	import { NAV, NAV_LINKS } from '#lib/constants/nav.ts';
 	import { BOOK_CALL_HREF, SITE } from '#lib/constants/site.ts';
+	import { openContact } from '#lib/hooks/contact.svelte.ts';
 
 	// Phone/tablet menu uses the native popover API: light dismiss and Esc for free.
 	let menu: HTMLElement;
@@ -17,7 +18,7 @@
 			{/each}
 		</ul>
 		<div class="spacer"></div>
-		<Button href={BOOK_CALL_HREF} size="sm" variant="ice" iconRight={ArrowUpRight} class="cta">{NAV.cta}</Button>
+		<Button href={BOOK_CALL_HREF} onclick={openContact} size="sm" variant="ice" iconRight={ArrowUpRight} class="cta">{NAV.cta}</Button>
 		<button class="ml-btn ml-btn--ghost ml-btn--md ml-iconbtn menu-btn" popovertarget="site-menu" aria-label={NAV.openMenu}>
 			<Menu size={22} aria-hidden="true" />
 		</button>
@@ -32,7 +33,7 @@
 				<li><a href={link.href} onclick={() => menu.hidePopover()}>{link.label}</a></li>
 			{/each}
 		</ul>
-		<Button href={BOOK_CALL_HREF} size="lg" variant="ice" block iconRight={ArrowUpRight}>{NAV.cta}</Button>
+		<Button href={BOOK_CALL_HREF} onclick={(e) => { menu.hidePopover(); openContact(e); }} size="lg" variant="ice" block iconRight={ArrowUpRight}>{NAV.cta}</Button>
 	</div>
 </header>
 

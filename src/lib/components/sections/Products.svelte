@@ -10,8 +10,8 @@
 	<SectionHeader id="products-title" {...PRODUCTS_SECTION} />
 
 	<ul class="grid">
-		{#each PRODUCTS as product (product.name)}
-			<li>
+		{#each PRODUCTS as product, i (product.name)}
+			<li class="reveal" style:--i={i}>
 				<Card as="article" variant="pop" padding="lg" class="product product--{product.accent}">
 					<div class="top">
 						<span class="tile"><product.icon size={26} aria-hidden="true" /></span>
