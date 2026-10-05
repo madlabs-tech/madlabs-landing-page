@@ -1,0 +1,28 @@
+/* Page-level layout helpers. Everything visual comes from the design-system tokens. */
+html {
+	scroll-behavior: smooth;
+	/* Keep anchor targets clear of the sticky nav. */
+	scroll-padding-top: 96px;
+}
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+}
+img,
+svg {
+	max-width: 100%;
+}
+.container {
+	max-width: calc(var(--container-lg) + 2 * var(--gutter));
+	margin-inline: auto;
+	padding-inline: var(--gutter);
+}
+.section {
+	padding-block: clamp(var(--space-16), 10vw, 110px);
+}
+@media (max-width: 640px) {
+	.container {
+		padding-inline: var(--space-4);
+	}
+}
