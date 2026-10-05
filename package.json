@@ -27,6 +27,6 @@
 	"dependencies": {
 		"@hryer/madlabs-design-system": "^0.1.1",
 		"@lucide/svelte": "^1.52.0",
-		"three": "^0.186.1"
+		"three": "0.184.0"
 	}
 }
