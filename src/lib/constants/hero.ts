@@ -6,9 +6,9 @@ export const HERO = {
 		{ text: 'AI', tone: 'ice' },
 		{ text: ' & ' },
 		{ text: 'Web3', tone: 'mint' },
-		{ text: ' consultants for Southeast Asia' }
+		{ text: ' consultants for teams worldwide' }
 	],
-	body: 'Madlabs is a consultancy and product studio. We help teams in Indonesia, Singapore and across Southeast Asia ship AI agents and blockchain systems, and we build our own.',
+	body: 'Madlabs is a consultancy and product studio based in Southeast Asia. We help teams anywhere ship AI agents and blockchain systems, and we build our own.',
 	primaryCta: 'Book a call',
 	secondaryCta: { href: '#services', label: 'See what we do' },
 	flask: {

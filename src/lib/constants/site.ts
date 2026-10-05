@@ -50,6 +50,6 @@ export const CONTACT_FORM = {
 };
 
 export const FOOTER = {
-	tagline: 'AI & Web3 consulting · Southeast Asia',
+	tagline: 'AI & Web3 consulting · worldwide, from Southeast Asia',
 	copyright: `© ${new Date().getFullYear()} ${SITE.legalName}`
 };

@@ -5,10 +5,10 @@
 	import ContactDialog from '#lib/components/sections/ContactDialog.svelte';
 	import Hero from '#lib/components/sections/Hero.svelte';
 	import Lab from '#lib/components/sections/Lab.svelte';
-	import Markets from '#lib/components/sections/Markets.svelte';
 	import Partners from '#lib/components/sections/Partners.svelte';
 	import Products from '#lib/components/sections/Products.svelte';
 	import Services from '#lib/components/sections/Services.svelte';
+	import WhereWeWork from '#lib/components/sections/WhereWeWork.svelte';
 	import SiteNav from '#lib/components/sections/SiteNav.svelte';
 	import Seo from '#lib/components/seo/Seo.svelte';
 	import { JSON_LD, SEO } from '#lib/constants/seo.ts';
@@ -22,7 +22,7 @@
 	<Services />
 	<Lab />
 	<Engagements />
-	<Markets />
+	<WhereWeWork />
 	<Products />
 	<Partners />
 	<Cta />

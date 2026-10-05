@@ -31,21 +31,21 @@ export type LabTab = (typeof LAB_TABS)[number]['id'];
 
 export const AGENT_DEMO = {
 	title: 'Support agent · refund ticket',
-	task: 'LAB-21 · Refund request, written in Bahasa Indonesia',
+	task: 'LAB-21 · Customer asks for a refund',
 	run: 'Run',
 	runAgain: 'Run again',
 	idle: 'Press Run to start the agent.',
 	working: 'working…',
 	events: [
-		{ icon: Inbox, text: 'Ticket read · language: Bahasa Indonesia' },
-		{ icon: Search, text: 'Order #ID-48213 found · paid with QRIS, 3 days ago' },
+		{ icon: Inbox, text: 'Ticket read · intent: refund request' },
+		{ icon: Search, text: 'Order #48213 found · paid by card, 3 days ago' },
 		{ icon: FileCheck, text: 'Refund policy checked · within 7 days ✓' },
 		{
 			icon: ArrowLeftRight,
 			text: 'Primary model hit its rate limit. The backup model picks up with the full context.',
 			pack: ['Ticket', 'Order', 'Policy', 'Plan']
 		},
-		{ icon: MessageSquare, text: 'Reply drafted in Bahasa Indonesia' },
+		{ icon: MessageSquare, text: 'Reply drafted in the customer’s language' },
 		{ icon: ShieldCheck, text: 'Checks · tone ✓ · policy ✓ · no personal data in the reply ✓' }
 	],
 	approve: 'Approve',
