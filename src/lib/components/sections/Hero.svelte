@@ -189,7 +189,7 @@
 
 	.stage {
 		position: relative;
-		height: 480px;
+		height: 560px;
 		width: 100%;
 		max-width: 560px;
 		justify-self: center;
@@ -212,23 +212,26 @@
 		translate: calc(var(--px, 0) * var(--depth)) calc(var(--py, 0) * var(--depth) * 0.75);
 		transition: translate 0.6s var(--ease-out);
 	}
-	/* Placed in the empty space around the flask: its chain and coins sit top-centre, its base bottom-centre. */
+	/*
+	 * Cards hug the stage edges so the 3D flask (centre) and its tokens (top-centre) stay clear.
+	 * They ignore the pointer, so clicks and drags reach the canvas even where they overlap.
+	 */
 	.specimen--agent {
-		left: 0;
-		top: 34%;
-		width: 240px;
+		left: -28px;
+		top: 30%;
+		width: 210px;
 		--depth: 22px;
 	}
 	.specimen--shielded {
-		right: 0;
-		bottom: 22%;
-		width: 220px;
+		right: -28px;
+		top: 50%;
+		width: 190px;
 		animation-delay: 1.2s;
 		--depth: 32px;
 	}
 	.specimen--block {
-		left: 0;
-		bottom: 2%;
+		left: -28px;
+		bottom: 6%;
 		width: 200px;
 		animation-delay: 2.4s;
 		--depth: 16px;
@@ -266,7 +269,7 @@
 	}
 	.amount {
 		margin-top: var(--space-2);
-		font-size: 26px;
+		font-size: 22px;
 		font-weight: var(--weight-bold);
 		transition: filter var(--dur-slow) var(--ease-out), opacity var(--dur-slow) var(--ease-out);
 	}
@@ -317,7 +320,7 @@
 			grid-template-columns: 1fr;
 		}
 		.stage {
-			height: 420px;
+			height: 500px;
 		}
 	}
 	@media (max-width: 640px) {
@@ -325,7 +328,8 @@
 			padding: 120px var(--space-4) var(--space-16);
 		}
 		.stage {
-			height: 320px;
+			height: 340px;
+			margin-bottom: 64px;
 		}
 		/* "CONSULTANTS" can't wrap; keep it inside a 320px screen. */
 		.title {

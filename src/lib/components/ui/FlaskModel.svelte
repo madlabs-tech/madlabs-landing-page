@@ -1,101 +1,63 @@
 <!--
-	The Madlabs 3D flask. The poster <img> is in the prerendered HTML, so it paints
-	immediately (and stays for crawlers, no-JS and no-WebGL visitors). model-viewer
-	(three.js under the hood, ~290 KB gz) loads after hydration and swaps in the live model.
+	The Madlabs flask, built and animated in three.js by the handoff runtime in src/lib/three/
+	(references/obj-animated): bubbles, vapour, orbiting tokens, cursor tilt, idle turntable,
+	click the flask to fizz, click a token to spin and pop it.
 
-	Motion: a slow idle drift, a turn as the page scrolls, and a tilt toward the pointer.
-	Drag to spin it yourself; on release it carries on from where you left it.
+	The poster <img> is in the prerendered HTML, so it paints immediately and stays for
+	crawlers, no-JS and no-WebGL visitors. three.js loads after hydration and replaces it.
 -->
 <script lang="ts">
+	import { Sparkles } from '@lucide/svelte';
 	import { onMount } from 'svelte';
+	import type { MadlabsObjectHandle } from '#lib/three/madlabs-scene.js';
 
-	type Props = { src: string; poster: string; alt: string };
+	type Props = { poster: string; alt: string; hint: string; fizz: string };
 
-	let { src, poster, alt }: Props = $props();
-	let viewer: HTMLElement & { getCameraOrbit?: () => { theta: number } };
+	let { poster, alt, hint, fizz }: Props = $props();
 
-	const ORBIT = { theta: 25, phi: 75 }; // resting camera angle, degrees
-	const DRIFT = 10; // idle spin, degrees per second
-	const SCROLL_TURN = 120; // degrees turned over one viewport of scrolling
-	const POINTER = { theta: 28, phi: 10 }; // max tilt toward the pointer, degrees
+	let stage: HTMLDivElement;
+	let handle = $state<MadlabsObjectHandle>();
+	let status = $state('');
 
 	onMount(() => {
-		// model-viewer hides the poster even when WebGL is unavailable, so without WebGL keep the poster.
 		const canvas = document.createElement('canvas');
 		if (!(canvas.getContext('webgl2') || canvas.getContext('webgl'))) return;
-		import('@google/model-viewer');
-		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-		const finePointer = matchMedia('(pointer: fine)').matches;
-		let px = 0;
-		let py = 0;
-		let offset = 0;
-		let dragging = false;
-		let visible = true;
-		let frame = 0;
-		const start = performance.now();
-
-		const target = (now: number) =>
-			ORBIT.theta + ((now - start) / 1000) * DRIFT + (scrollY / innerHeight) * SCROLL_TURN + px * POINTER.theta;
-
-		const onPointerMove = (e: PointerEvent) => {
-			if (!finePointer) return;
-			px = (e.clientX / innerWidth) * 2 - 1;
-			py = (e.clientY / innerHeight) * 2 - 1;
-		};
-		const onDown = () => (dragging = true);
-		const onUp = () => {
-			if (!dragging) return;
-			dragging = false;
-			const theta = viewer.getCameraOrbit?.().theta;
-			if (theta !== undefined) offset = (theta * 180) / Math.PI - target(performance.now());
-		};
-		const loop = (now: number) => {
-			frame = requestAnimationFrame(loop);
-			if (dragging || !visible) return;
-			const theta = target(now) + offset;
-			const phi = ORBIT.phi + py * POINTER.phi;
-			viewer.setAttribute('camera-orbit', `${theta.toFixed(2)}deg ${phi.toFixed(2)}deg auto`);
-		};
-
-		const io = new IntersectionObserver(([entry]) => (visible = entry.isIntersecting));
-		io.observe(viewer);
-		addEventListener('pointermove', onPointerMove, { passive: true });
-		viewer.addEventListener('pointerdown', onDown);
-		addEventListener('pointerup', onUp);
-		addEventListener('pointercancel', onUp);
-		customElements.whenDefined('model-viewer').then(() => (frame = requestAnimationFrame(loop)));
-
+		let cancelled = false;
+		import('#lib/three/madlabs-scene.js').then(({ mountMadlabsObject }) => {
+			if (cancelled) return;
+			try {
+				handle = mountMadlabsObject(stage, {
+					kind: 'flask',
+					theme: 'dark',
+					frame: 0.92, // bigger than the handoff default (1.12) while keeping the orbiting tokens in frame
+					motion: !matchMedia('(prefers-reduced-motion: reduce)').matches,
+					onStatus: (text) => (status = text)
+				});
+			} catch {
+				// WebGL context refused: the poster stays.
+			}
+		});
 		return () => {
-			cancelAnimationFrame(frame);
-			io.disconnect();
-			removeEventListener('pointermove', onPointerMove);
-			viewer.removeEventListener('pointerdown', onDown);
-			removeEventListener('pointerup', onUp);
-			removeEventListener('pointercancel', onUp);
+			cancelled = true;
+			handle?.destroy();
 		};
 	});
 </script>
 
 <div class="flask">
-	<model-viewer
-		bind:this={viewer}
-		{src}
-		{alt}
-		camera-controls
-		disable-zoom
-		disable-pan
-		touch-action="pan-y"
-		interaction-prompt="none"
-		interpolation-decay="120"
-		camera-orbit="{ORBIT.theta}deg {ORBIT.phi}deg auto"
-		shadow-intensity="0"
-		environment-image="neutral"
-		exposure="1.1"
-	>
-		<img slot="poster" class="poster" src={poster} {alt} width="498" height="720" fetchpriority="high" />
-		<div slot="progress-bar"></div>
-	</model-viewer>
+	<img class={['poster', handle && 'poster--hidden']} src={poster} {alt} width="1096" height="1120" fetchpriority="high" />
+	<div class="stage" bind:this={stage} role="img" aria-label={alt}></div>
+
+	{#if handle}
+		<div class="controls">
+			<button type="button" class="fizz" onclick={() => handle?.click('flask')}>
+				<Sparkles size={14} aria-hidden="true" />{fizz}
+			</button>
+			<p class="ml-mono status" aria-live="polite">{status}</p>
+			<p class="hint">{hint}</p>
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -104,35 +66,28 @@
 		width: 100%;
 		height: 100%;
 	}
-	/* Cool glow behind the flask; it breathes slowly. */
+	/* Cool glow behind the flask (the handoff keeps the glow in CSS); it breathes slowly. */
 	.flask::before {
 		content: '';
 		position: absolute;
 		inset: 18%;
 		border-radius: 50%;
-		background: var(--ice-500);
-		filter: blur(70px);
-		opacity: 0.35;
+		background: var(--ice-400);
+		filter: blur(90px);
+		opacity: 0.32;
 		animation: glow 6s var(--ease-in-out) infinite;
+		pointer-events: none;
 	}
 	@keyframes glow {
 		50% {
-			opacity: 0.55;
+			opacity: 0.5;
 			scale: 1.08;
 		}
 	}
-	model-viewer {
-		position: relative;
-		display: block;
-		width: 100%;
-		height: 100%;
-		background: transparent;
-		--poster-color: transparent;
+	.stage {
+		position: absolute;
+		inset: 0;
 		animation: ml-pop-in var(--dur-lazy) var(--ease-spring) both;
-		cursor: grab;
-	}
-	model-viewer:active {
-		cursor: grabbing;
 	}
 	.poster {
 		position: absolute;
@@ -140,7 +95,72 @@
 		width: 100%;
 		height: 100%;
 		object-fit: contain;
-		/* Without WebGL the poster stays: give it the same gentle bob. */
 		animation: ml-float 6s var(--ease-in-out) infinite;
+		transition: opacity var(--dur-slow) var(--ease-out);
+	}
+	.poster--hidden {
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	/* Bottom-right corner of the stage is clear of the flask and the floating cards. */
+	.controls {
+		position: absolute;
+		right: 0;
+		bottom: -6px;
+		display: grid;
+		justify-items: end;
+		gap: 6px;
+		text-align: right;
+		animation: ml-fade-up var(--dur-slow) var(--ease-out) both;
+	}
+	.fizz {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		min-height: var(--control-sm);
+		padding: 0 12px;
+		border-radius: var(--radius-pill);
+		border: var(--border-thin) solid var(--glass-border-dark);
+		background: var(--glass-dark);
+		backdrop-filter: blur(var(--blur-sm));
+		color: var(--ice-200);
+		font: inherit;
+		font-size: 13px;
+		font-weight: var(--weight-semibold);
+		cursor: pointer;
+		transition:
+			transform var(--dur-fast) var(--ease-spring),
+			border-color var(--dur-fast);
+	}
+	.fizz:hover {
+		border-color: var(--ice-400);
+		transform: translateY(-1px);
+	}
+	.fizz:active {
+		transform: scale(0.95);
+	}
+	.status,
+	.hint {
+		margin: 0;
+		font-size: var(--size-micro);
+		color: var(--slate-400);
+	}
+	.status {
+		color: var(--ice-300);
+	}
+	@media (pointer: coarse) {
+		.fizz {
+			min-height: var(--control-md);
+		}
+	}
+	/* Phone: the stage is narrow, so the controls sit centred under the flask. */
+	@media (max-width: 640px) {
+		.controls {
+			left: 0;
+			bottom: -64px;
+			justify-items: center;
+			text-align: center;
+		}
 	}
 </style>

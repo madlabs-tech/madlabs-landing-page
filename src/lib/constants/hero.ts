@@ -12,9 +12,10 @@ export const HERO = {
 	primaryCta: 'Book a call',
 	secondaryCta: { href: '#services', label: 'See what we do' },
 	flask: {
-		src: '/models/madlabs-flask.glb',
 		poster: '/models/madlabs-flask-poster.webp',
-		alt: 'The Madlabs flask: a glass lab flask of ice-blue liquid with a chain link, an Ether crystal and a Bitcoin coin bubbling out. Drag to spin it.'
+		alt: 'The Madlabs flask: a glass lab flask of bubbling ice-blue liquid, with a chain link, an Ether crystal and a Bitcoin coin orbiting above it.',
+		hint: 'Drag to spin · click the flask or a token',
+		fizz: 'Fizz it'
 	},
 	// Floating "lab specimens". They tick like live systems; see Hero.svelte for the loop.
 	specimens: {

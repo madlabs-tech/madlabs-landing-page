@@ -28,12 +28,13 @@ src/
     hooks/                 reusable reactive logic: `*.svelte.ts` rune modules and Svelte attachments
                            (ticker, parallax, contact dialog state, reduced-motion durations)
     constants/             all copy and fixed data, one file per section plus site.ts and seo.ts
+    three/                 3D runtime for the flask (vendored handoff, see below)
     types/                 shared TS types, once two or more files use them
 static/
   sitemap.xml, robots.txt  add a <url> to sitemap.xml with every new page
-  models/madlabs-flask.glb
+  models/                  madlabs-flask-poster.webp (no-WebGL / pre-JS fallback)
   og/                      Open Graph images (1200×630)
-objects/                   3D source files
+objects/                   3D source files (reference only; the site builds the flask in code)
 references/                design system and product docs, read-only
 ```
 
@@ -46,8 +47,9 @@ references/                design system and product docs, read-only
 
 ## The 3D flask
 
-`objects/madlabs-flask.glb` (~520 KB) is the brand object and appears in the hero at every breakpoint, phone included. Copy the `.glb` to `static/models/`; `madlabs-flask.obj` (5 MB) stays a source file.
+The Madlabs flask is the brand object and appears in the hero at every breakpoint, phone included. It is built and animated in code, not loaded from a file: GLB/OBJ hold static geometry only and cannot react to clicks or the cursor.
 
-- `src/lib/components/ui/FlaskModel.svelte` renders it with `<model-viewer>`, imported after hydration. It drifts slowly, turns with scroll and tilts toward the pointer (tuning constants at the top of the file); dragging hands control to the visitor. All of it is off under `prefers-reduced-motion`. The poster `<img>` sits in the prerendered HTML, so crawlers, slow phones and no-WebGL browsers see it. model-viewer hides its poster even when WebGL fails, so the script loads only when a WebGL context exists.
-- `static/models/madlabs-flask-poster.webp` and `static/og/madlabs.png` are renders of the `.glb`. Re-render both when the model changes; they come from model-viewer's `toBlob()` / a 2D canvas, since headless screenshots hang on WebGL pages.
-- Threlte (three.js for Svelte) replaces it only when a feature needs scene control model-viewer lacks (custom lighting, scroll-driven animation). That switch is a grilling decision.
+- `src/lib/three/` is the designer's runtime from `references/obj-animated/` (`madlabs-objects.js`, `madlabs-scene.js`), vendored under the same names so a new handoff drops in. It is `@ts-nocheck`, with types in `madlabs-scene.d.ts`. Our only change is the `motion` option (reduced motion = a still scene that animates briefly after a click or drag); keep it when re-syncing. `kind: 'sun'` (the Sun orchestrator object) is there too, unused for now.
+- `src/lib/components/ui/FlaskModel.svelte` mounts it after hydration (three.js is ~154 KB gz, lazy). Interactions: drag to orbit, cursor tilt, idle turntable, click the flask to fizz, click a token to spin it, plus a "Fizz it" button and a live status line for keyboard and screen-reader users.
+- The poster `<img>` (`static/models/madlabs-flask-poster.webp`) is in the prerendered HTML for crawlers, slow phones and no-WebGL browsers; the canvas replaces it once mounted. The poster and `static/og/madlabs.png` are renders of the flask: re-render them when the model changes, from the scene itself or a 2D canvas, since headless screenshots hang on pages with a WebGL loop.
+- Verify the live scene in a browser with WebGL. The automated Chrome here has WebGL off; headless Brave with `--use-angle=swiftshader --enable-unsafe-swiftshader`, driven over the DevTools protocol, renders it.
