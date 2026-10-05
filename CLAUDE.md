@@ -11,6 +11,7 @@ Stack: SvelteKit (Svelte 5 runes, TypeScript), `adapter-static`, every route pre
 - **UI work**: follow `.claude/rules/design-system.md`.
 - **Copy, pages, metadata**: follow `.claude/rules/seo-copy.md`.
 - **Done** means `npm run check` and `npm run build` pass and the change has been viewed at 375, 768, 1024 and 1280px widths.
+- **Deploy** is automatic: a push to `main` builds the image (`Dockerfile`, Caddy serving `build/`) and publishes it to GHCR; the VPS polls for it and deploys with a health gate and rollback (`hryer/vps-infra`, project `madlabs-landing`). CI never touches the box.
 
 ## Folder structure
 
