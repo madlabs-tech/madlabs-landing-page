@@ -1,4 +1,4 @@
-<!-- Port of the design system's Select (native <select>, styled control). -->
+<!-- Port of the design system's Select (native <select>, styled control). Kept over the package's, whose chevron loads from a CDN. -->
 <script lang="ts">
 	import { ChevronDown } from '@lucide/svelte';
 

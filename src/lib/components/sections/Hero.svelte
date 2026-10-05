@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ArrowRight, Blocks, Bot, CircleCheck } from '@lucide/svelte';
 	import { prefersReducedMotion } from 'svelte/motion';
-	import Badge from '#lib/components/ui/Badge.svelte';
+	import { Badge } from '@hryer/madlabs-design-system/svelte';
 	import Button from '#lib/components/ui/Button.svelte';
 	import FlaskModel from '#lib/components/ui/FlaskModel.svelte';
 	import { HERO } from '#lib/constants/hero.ts';

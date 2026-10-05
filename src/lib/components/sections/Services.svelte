@@ -1,7 +1,6 @@
 <script lang="ts">
-	import Card from '#lib/components/ui/Card.svelte';
+	import { Card, Tag } from '@hryer/madlabs-design-system/svelte';
 	import SectionHeader from '#lib/components/ui/SectionHeader.svelte';
-	import Tag from '#lib/components/ui/Tag.svelte';
 	import { SERVICES, SERVICES_SECTION } from '#lib/constants/services.ts';
 </script>
 

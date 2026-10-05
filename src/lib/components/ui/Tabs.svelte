@@ -2,6 +2,7 @@
 	Port of the design system's Tabs, with the WAI-ARIA tabs pattern:
 	roving tabindex, arrow keys / Home / End move between tabs.
 	Pair each tab with a role="tabpanel" whose id is `${idPrefix}-panel-${tab.id}`.
+	Kept over the package's Svelte Tabs, which has no keyboard navigation or tab/panel linking.
 -->
 <script lang="ts" generics="T extends string">
 	import type { LucideIcon } from '@lucide/svelte';

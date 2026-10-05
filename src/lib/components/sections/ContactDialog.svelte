@@ -5,11 +5,11 @@
 <script lang="ts">
 	import { Send } from '@lucide/svelte';
 	import { fly } from 'svelte/transition';
+	import { Tag } from '@hryer/madlabs-design-system/svelte';
 	import Button from '#lib/components/ui/Button.svelte';
 	import Dialog from '#lib/components/ui/Dialog.svelte';
 	import Input from '#lib/components/ui/Input.svelte';
 	import Select from '#lib/components/ui/Select.svelte';
-	import Tag from '#lib/components/ui/Tag.svelte';
 	import Toast from '#lib/components/ui/Toast.svelte';
 	import { CONTACT_FORM as F, SITE } from '#lib/constants/site.ts';
 	import { contact } from '#lib/hooks/contact.svelte.ts';

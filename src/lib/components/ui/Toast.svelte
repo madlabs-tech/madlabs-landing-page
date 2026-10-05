@@ -1,4 +1,4 @@
-<!-- Port of the design system's Toast. -->
+<!-- Port of the design system's Toast. Kept over the package's, whose icons load from a CDN and whose dismiss label is fixed English. -->
 <script lang="ts">
 	import { CircleCheck, Sparkles, X } from '@lucide/svelte';
 

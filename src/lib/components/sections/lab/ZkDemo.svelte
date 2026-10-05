@@ -2,9 +2,8 @@
 <script lang="ts">
 	import { EyeOff, Lock, Send, TriangleAlert } from '@lucide/svelte';
 	import { fade } from 'svelte/transition';
-	import Badge from '#lib/components/ui/Badge.svelte';
+	import { Badge, Switch } from '@hryer/madlabs-design-system/svelte';
 	import Button from '#lib/components/ui/Button.svelte';
-	import Switch from '#lib/components/ui/Switch.svelte';
 	import { ZK_DEMO as Z } from '#lib/constants/lab.ts';
 	import { ms } from '#lib/hooks/motion.ts';
 	import { useTicker } from '#lib/hooks/ticker.svelte.ts';
