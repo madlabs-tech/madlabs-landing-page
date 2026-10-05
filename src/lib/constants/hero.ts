@@ -15,7 +15,10 @@ export const HERO = {
 		poster: '/models/madlabs-flask-poster.webp',
 		alt: 'The Madlabs flask: a glass lab flask of bubbling ice-blue liquid, with a chain link, an Ether crystal and a Bitcoin coin orbiting above it.',
 		hint: 'Drag to spin · click the flask or a token',
-		fizz: 'Fizz it'
+		fizz: 'Fizz it',
+		// No-WebGL fallback: same status line as the 3D runtime, hint without the drag.
+		fallbackStatus: (n: number) => `3 tokens · ${n} reaction${n === 1 ? '' : 's'}`,
+		fallbackHint: 'Click the flask to make it fizz'
 	},
 	// Floating "lab specimens". They tick like live systems; see Hero.svelte for the loop.
 	specimens: {
