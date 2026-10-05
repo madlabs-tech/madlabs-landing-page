@@ -7,6 +7,7 @@ export const PARTNERS_SECTION = {
 
 export const PARTNER_GROUPS = [
 	{ id: 'all', label: 'All' },
+	{ id: 'ai', label: 'AI & automation' },
 	{ id: 'infra', label: 'Infra & cloud' },
 	{ id: 'custody', label: 'Custody & wallets' },
 	{ id: 'defi', label: 'DeFi & data' },
@@ -34,5 +35,13 @@ export const PARTNERS: { name: string; domain: string; role: string; group: Part
 	{ name: 'Alpaca', domain: 'alpaca.markets', role: 'Markets API', group: 'pay' },
 	{ name: 'Stripe', domain: 'stripe.com', role: 'Payments', group: 'pay' },
 	{ name: 'Midtrans', domain: 'midtrans.com', role: 'Payment gateway (ID)', group: 'pay' },
-	{ name: 'Xendit', domain: 'xendit.co', role: 'Payment gateway (SEA)', group: 'pay' }
+	{ name: 'Xendit', domain: 'xendit.co', role: 'Payment gateway (SEA)', group: 'pay' },
+	{ name: 'Claude', domain: 'claude.ai', role: 'Anthropic models', group: 'ai' },
+	{ name: 'GPT', domain: 'openai.com', role: 'OpenAI models', group: 'ai' },
+	{ name: 'Higgsfield', domain: 'higgsfield.ai', role: 'AI video · MCP', group: 'ai' },
+	{ name: 'Zapier', domain: 'zapier.com', role: 'Automation', group: 'ai' },
+	{ name: 'DeepSeek', domain: 'deepseek.com', role: 'Open models', group: 'ai' },
+	{ name: 'GLM', domain: 'z.ai', role: 'Zhipu models', group: 'ai' },
+	{ name: 'Kimi', domain: 'kimi.com', role: 'Moonshot models', group: 'ai' },
+	{ name: 'Qwen', domain: 'qwen.ai', role: 'Alibaba models', group: 'ai' }
 ];
