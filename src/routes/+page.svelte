@@ -2,7 +2,9 @@
 	import Cta from '#lib/components/sections/Cta.svelte';
 	import Engagements from '#lib/components/sections/Engagements.svelte';
 	import Footer from '#lib/components/sections/Footer.svelte';
+	import ContactDialog from '#lib/components/sections/ContactDialog.svelte';
 	import Hero from '#lib/components/sections/Hero.svelte';
+	import Lab from '#lib/components/sections/Lab.svelte';
 	import Markets from '#lib/components/sections/Markets.svelte';
 	import Partners from '#lib/components/sections/Partners.svelte';
 	import Products from '#lib/components/sections/Products.svelte';
@@ -18,6 +20,7 @@
 <main>
 	<Hero />
 	<Services />
+	<Lab />
 	<Engagements />
 	<Markets />
 	<Products />
@@ -25,3 +28,4 @@
 	<Cta />
 </main>
 <Footer />
+<ContactDialog />

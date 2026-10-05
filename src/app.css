@@ -21,6 +21,30 @@ svg {
 .section {
 	padding-block: clamp(var(--space-16), 10vw, 110px);
 }
+
+/*
+ * Scroll reveal: CSS scroll-driven animation, no JavaScript.
+ * Content is visible by default (crawlers, no-JS, unsupported browsers, reduced motion)
+ * and only animates where the browser supports view timelines.
+ * Stagger siblings with style="--i: n".
+ */
+@supports (animation-timeline: view()) {
+	@media (prefers-reduced-motion: no-preference) {
+		.reveal {
+			animation: reveal linear both;
+			animation-timeline: view();
+			animation-range: entry calc(var(--i, 0) * 6%) entry calc(70% + var(--i, 0) * 6%);
+		}
+	}
+}
+@keyframes reveal {
+	from {
+		opacity: 0;
+		translate: 0 28px;
+		scale: 0.96;
+	}
+}
+
 @media (max-width: 640px) {
 	.container {
 		padding-inline: var(--space-4);

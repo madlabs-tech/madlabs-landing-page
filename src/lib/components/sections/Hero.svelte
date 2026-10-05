@@ -1,15 +1,40 @@
 <script lang="ts">
-	import { ArrowRight, Blocks, Bot } from '@lucide/svelte';
+	import { ArrowRight, Blocks, Bot, CircleCheck } from '@lucide/svelte';
+	import { prefersReducedMotion } from 'svelte/motion';
 	import Badge from '#lib/components/ui/Badge.svelte';
 	import Button from '#lib/components/ui/Button.svelte';
 	import FlaskModel from '#lib/components/ui/FlaskModel.svelte';
 	import { HERO } from '#lib/constants/hero.ts';
 	import { BOOK_CALL_HREF } from '#lib/constants/site.ts';
+	import { openContact } from '#lib/hooks/contact.svelte.ts';
+	import { parallax } from '#lib/hooks/parallax.ts';
+	import { useTicker } from '#lib/hooks/ticker.svelte.ts';
 
 	const { agent, shielded, block } = HERO.specimens;
+
+	// Headline words pop in one after another; spaces stay real text so the <h1> reads normally.
+	const words = HERO.title.flatMap((part) =>
+		part.text
+			.split(/(\s+)/)
+			.filter(Boolean)
+			.map((text) => ({ text, tone: part.tone }))
+	);
+
+	// One clock drives all three specimens. Frozen (on a good-looking frame) under reduced motion.
+	const tick = useTicker(1100, () => !prefersReducedMotion.current);
+	const t = $derived(tick.count + 5);
+
+	const agentPhase = $derived(t % (agent.tools.length + 2)); // 9 steps, then 2 ticks "finished"
+	const agentDone = $derived(agentPhase >= agent.tools.length);
+	const agentStep = $derived(Math.min(agentPhase, agent.tools.length - 1));
+
+	const proving = $derived(t % 6 < 2);
+
+	const cellsOn = $derived(t % (block.cells + 1));
+	const blockNumber = $derived(block.start + Math.floor(t / (block.cells + 1)));
 </script>
 
-<section class="hero ml-bg-dots-dark ml-on-dark">
+<section class="hero ml-bg-dots-dark ml-on-dark" {@attach parallax}>
 	<div class="blob blob--ice"></div>
 	<div class="blob blob--mint"></div>
 
@@ -18,46 +43,55 @@
 			<Badge tone="info" live>{HERO.badge}</Badge>
 			<p class="ml-eyebrow eyebrow">{HERO.eyebrow}</p>
 			<h1 class="ml-display-1 title">
-				{#each HERO.title as part, i (i)}
-					{#if part.tone}<span class={part.tone}>{part.text}</span>{:else}{part.text}{/if}
+				{#each words as word, i (i)}
+					{#if word.text.trim()}<span class={['word', word.tone]} style:--i={i}>{word.text}</span>{:else}{' '}{/if}
 				{/each}
 			</h1>
 			<p class="ml-body-lg body">{HERO.body}</p>
 			<div class="actions">
-				<Button href={BOOK_CALL_HREF} size="lg" variant="ice" iconRight={ArrowRight}>{HERO.primaryCta}</Button>
+				<Button href={BOOK_CALL_HREF} onclick={openContact} size="lg" variant="ice" iconRight={ArrowRight}>{HERO.primaryCta}</Button>
 				<Button href={HERO.secondaryCta.href} size="lg" variant="secondary">{HERO.secondaryCta.label}</Button>
 			</div>
 		</div>
 
 		<div class="stage">
-			<FlaskModel {...HERO.flask} />
+			<div class="flask-layer"><FlaskModel {...HERO.flask} /></div>
 
-			<!-- Floating "lab specimens": decoration, hidden from assistive tech and on phones. -->
+			<!-- Floating "lab specimens": live decoration, hidden from assistive tech and on phones. -->
 			<div class="specimen ml-glass-dark specimen--agent" aria-hidden="true">
 				<div class="row">
-					<span class="chip"><Bot size={18} /></span>
+					<span class={['chip', agentDone && 'chip--done']}>
+						{#if agentDone}<CircleCheck size={18} />{:else}<Bot size={18} />{/if}
+					</span>
 					<div>
 						<div class="name">{agent.name}</div>
-						<div class="ml-mono meta">{agent.meta}</div>
+						<div class="ml-mono meta">
+							{agentDone ? agent.done : agent.step(agentStep + 1, agent.tools.length, agent.tools[agentStep])}
+						</div>
 					</div>
 				</div>
-				<div class="track"><div class="fill" style:width="{agent.progress}%"></div></div>
+				<div class="track">
+					<div class={['fill', agentDone && 'fill--done']} style:width="{agentDone ? 100 : ((agentStep + 1) / agent.tools.length) * 100}%"></div>
+				</div>
 			</div>
 
 			<div class="specimen ml-glass-dark specimen--shielded" aria-hidden="true">
 				<div class="row between">
 					<span class="ml-eyebrow">{shielded.label}</span>
-					<Badge tone="success" dot>{shielded.tag}</Badge>
+					<Badge tone="success" dot live={proving}>{shielded.tag}</Badge>
 				</div>
-				<div class="ml-mono amount">{shielded.amount}</div>
-				<div class="ml-mono meta">{shielded.meta}</div>
+				<div class={['ml-mono amount', proving && 'amount--proving']}>{shielded.amount}</div>
+				<div class="ml-mono meta">{proving ? shielded.proving : shielded.meta}</div>
 			</div>
 
 			<div class="specimen ml-glass-dark specimen--block" aria-hidden="true">
-				<div class="row"><Blocks size={18} color="var(--frost-300)" /><span class="name">{block.title}</span></div>
-				<div class="cells">
-					{#each { length: block.total }, i (i)}
-						<span class={['cell', i < block.filled && 'cell--on']}></span>
+				<div class="row">
+					<Blocks size={18} color="var(--frost-300)" />
+					{#key blockNumber}<span class="name block-title">{block.title(blockNumber)}</span>{/key}
+				</div>
+				<div class={['cells', cellsOn === block.cells && 'cells--sealed']}>
+					{#each { length: block.cells }, i (i)}
+						<span class={['cell', i < cellsOn && 'cell--on']}></span>
 					{/each}
 				</div>
 			</div>
@@ -79,6 +113,7 @@
 		border-radius: 50%;
 		filter: blur(140px);
 		pointer-events: none;
+		transition: translate 1.4s var(--ease-out);
 	}
 	.blob--ice {
 		width: 520px;
@@ -87,6 +122,7 @@
 		top: -60px;
 		background: var(--ice-500);
 		opacity: 0.35;
+		translate: calc(var(--px, 0) * -40px) calc(var(--py, 0) * -30px);
 	}
 	.blob--mint {
 		width: 420px;
@@ -95,6 +131,7 @@
 		bottom: -200px;
 		background: var(--mint-500);
 		opacity: 0.22;
+		translate: calc(var(--px, 0) * 30px) calc(var(--py, 0) * 24px);
 	}
 	.inner {
 		position: relative;
@@ -117,6 +154,20 @@
 		font-size: clamp(40px, 6.2vw, 80px);
 		color: #fff;
 		text-wrap: balance;
+	}
+	/* Headline words pop in one by one. */
+	.word {
+		display: inline-block;
+		animation: word-in 0.75s var(--ease-spring) both;
+		animation-delay: calc(150ms + var(--i) * 45ms);
+	}
+	@keyframes word-in {
+		from {
+			opacity: 0;
+			translate: 0 0.45em;
+			rotate: -4deg;
+			scale: 0.9;
+		}
 	}
 	.ice {
 		color: var(--ice-300);
@@ -143,6 +194,13 @@
 		max-width: 560px;
 		justify-self: center;
 	}
+	/* Parallax: the flask drifts against the pointer, the cards with it, at different depths. */
+	.flask-layer {
+		position: absolute;
+		inset: 0;
+		translate: calc(var(--px, 0) * -12px) calc(var(--py, 0) * -10px);
+		transition: translate 0.9s var(--ease-out);
+	}
 	.specimen {
 		position: absolute;
 		padding: var(--space-4);
@@ -151,24 +209,29 @@
 		box-shadow: var(--shadow-xl);
 		animation: ml-float 5s var(--ease-in-out) infinite;
 		pointer-events: none;
+		translate: calc(var(--px, 0) * var(--depth)) calc(var(--py, 0) * var(--depth) * 0.75);
+		transition: translate 0.6s var(--ease-out);
 	}
 	/* Placed in the empty space around the flask: its chain and coins sit top-centre, its base bottom-centre. */
 	.specimen--agent {
 		left: 0;
 		top: 34%;
 		width: 240px;
+		--depth: 22px;
 	}
 	.specimen--shielded {
 		right: 0;
 		bottom: 22%;
 		width: 220px;
 		animation-delay: 1.2s;
+		--depth: 32px;
 	}
 	.specimen--block {
 		left: 0;
 		bottom: 2%;
 		width: 200px;
 		animation-delay: 2.4s;
+		--depth: 16px;
 	}
 	.row {
 		display: flex;
@@ -186,6 +249,12 @@
 		border-radius: 11px;
 		background: var(--ice-400);
 		color: var(--on-ice);
+		transition: background var(--dur-base) var(--ease-out);
+	}
+	.chip--done {
+		background: var(--mint-400);
+		color: var(--on-mint);
+		animation: ml-pop-in var(--dur-slow) var(--ease-spring);
 	}
 	.name {
 		font-weight: var(--weight-semibold);
@@ -199,6 +268,11 @@
 		margin-top: var(--space-2);
 		font-size: 26px;
 		font-weight: var(--weight-bold);
+		transition: filter var(--dur-slow) var(--ease-out), opacity var(--dur-slow) var(--ease-out);
+	}
+	.amount--proving {
+		filter: blur(7px);
+		opacity: 0.6;
 	}
 	.track {
 		height: 6px;
@@ -211,6 +285,13 @@
 		height: 100%;
 		border-radius: 6px;
 		background: var(--ice-400);
+		transition: width 0.9s var(--ease-spring), background var(--dur-base);
+	}
+	.fill--done {
+		background: var(--mint-400);
+	}
+	.block-title {
+		animation: ml-fade-up var(--dur-slow) var(--ease-out);
 	}
 	.cells {
 		display: flex;
@@ -225,6 +306,10 @@
 	}
 	.cell--on {
 		background: var(--frost-400);
+		animation: ml-pop-in var(--dur-slow) var(--ease-spring);
+	}
+	.cells--sealed .cell {
+		box-shadow: 0 0 14px color-mix(in srgb, var(--frost-400) 60%, transparent);
 	}
 
 	@media (max-width: 1000px) {

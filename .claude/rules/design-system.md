@@ -17,6 +17,16 @@ Source of truth: `references/madlabs-design-system/`. Read its `readme.md` (cont
 - **Type:** Matcha World via `--font-brand` for display headlines and the MADLABS wordmark; Sora for body; JetBrains Mono for numbers, hashes, eyebrows. Coolvetica belongs to Sun product screens only.
 - **Icons:** Lucide via `@lucide/svelte` (inline SVG, 2px stroke, inherits `currentColor`).
 
+## Motion and interaction
+
+Native first: CSS keyframes from the design system, Svelte transitions, small hooks in `src/lib/hooks/`. GSAP is approved for choreography native can't do well (pinned scroll scenes, SplitText); none needs it today.
+
+- **Scroll reveal:** add `class="reveal"` (stagger siblings with `style:--i={i}`). It is a CSS scroll-driven animation in `src/app.css`: content stays visible without support, without JS and under reduced motion, so crawlers always see it.
+- **Svelte transitions/animations** take `duration: ms(n)` from `hooks/motion.ts`, which returns 0 under `prefers-reduced-motion`. The design system's global reduced-motion rule only reaches CSS animations.
+- **Timed demos** use `useTicker` (`hooks/ticker.svelte.ts`). Decorative loops stop under reduced motion; anything the visitor started runs regardless.
+- **Parallax** (`{@attach parallax}`) moves decorative layers only, through the `--px`/`--py` CSS variables and the individual `translate` property. Text and controls stay put.
+- **Book a call** links keep their `mailto:` href (the no-JS path) and add `onclick={openContact}` to open the dialog.
+
 ## Responsive
 
 Mobile-first. Breakpoints match the design system: ≤640px phone (`.ml-hide-sm`), ≤1000px tablet (`.ml-hide-md`). Container 1200px max.

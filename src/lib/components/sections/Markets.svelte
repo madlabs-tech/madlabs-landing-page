@@ -8,15 +8,15 @@
 	<div class="section container">
 		<SectionHeader id="southeast-asia-title" {...MARKETS_SECTION} />
 
-		<ul class="markets">
+		<ul class="markets reveal">
 			{#each MARKETS as market (market)}
 				<li><MapPin size={16} aria-hidden="true" />{market}</li>
 			{/each}
 		</ul>
 
 		<ul class="points">
-			{#each MARKET_POINTS as point (point.title)}
-				<li class="ml-card ml-card--glass ml-card--pad-lg">
+			{#each MARKET_POINTS as point, i (point.title)}
+				<li class="ml-card ml-card--glass ml-card--pad-lg reveal" style:--i={i}>
 					<span class="tile"><point.icon size={22} aria-hidden="true" /></span>
 					<h3 class="ml-h4">{point.title}</h3>
 					<p>{point.body}</p>

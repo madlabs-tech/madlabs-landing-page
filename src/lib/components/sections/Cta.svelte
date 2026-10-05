@@ -2,15 +2,16 @@
 	import { ArrowRight } from '@lucide/svelte';
 	import Button from '#lib/components/ui/Button.svelte';
 	import { BOOK_CALL_HREF, CTA } from '#lib/constants/site.ts';
+	import { openContact } from '#lib/hooks/contact.svelte.ts';
 </script>
 
 <section id="contact" class="section container" aria-labelledby="contact-title">
-	<div class="ml-card ml-card--pop card">
+	<div class="ml-card ml-card--pop card reveal">
 		<div class="copy">
 			<h2 id="contact-title" class="ml-display-3 title">{CTA.title}</h2>
 			<p class="ml-body-lg">{CTA.body}</p>
 		</div>
-		<Button href={BOOK_CALL_HREF} size="lg" variant="secondary" iconRight={ArrowRight}>{CTA.button}</Button>
+		<Button href={BOOK_CALL_HREF} onclick={openContact} size="lg" variant="secondary" iconRight={ArrowRight}>{CTA.button}</Button>
 	</div>
 </section>
 

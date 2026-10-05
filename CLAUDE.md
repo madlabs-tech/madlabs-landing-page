@@ -22,9 +22,11 @@ src/
   lib/
     components/
       ui/                  design-system primitives ported to Svelte (Button, Card, Badge, Tag, Icon…)
-      sections/            one file per page section (SiteNav, Hero, Services, Products, Partners, Cta, Footer)
+      sections/            one file per page section (SiteNav, Hero, Services, Lab, …, ContactDialog);
+                           a section's private parts go in a subfolder (sections/lab/)
       seo/                 Seo.svelte: <svelte:head> meta, Open Graph, JSON-LD
-    hooks/                 reusable reactive logic: `*.svelte.ts` rune modules and Svelte actions
+    hooks/                 reusable reactive logic: `*.svelte.ts` rune modules and Svelte attachments
+                           (ticker, parallax, contact dialog state, reduced-motion durations)
     constants/             all copy and fixed data, one file per section plus site.ts and seo.ts
     types/                 shared TS types, once two or more files use them
 static/
@@ -46,6 +48,6 @@ references/                design system and product docs, read-only
 
 `objects/madlabs-flask.glb` (~520 KB) is the brand object and appears in the hero at every breakpoint, phone included. Copy the `.glb` to `static/models/`; `madlabs-flask.obj` (5 MB) stays a source file.
 
-- `src/lib/components/ui/FlaskModel.svelte` renders it with `<model-viewer>`, imported after hydration, `auto-rotate` off under `prefers-reduced-motion`. The poster `<img>` sits in the prerendered HTML, so crawlers, slow phones and no-WebGL browsers see it. model-viewer hides its poster even when WebGL fails, so the script loads only when a WebGL context exists.
+- `src/lib/components/ui/FlaskModel.svelte` renders it with `<model-viewer>`, imported after hydration. It drifts slowly, turns with scroll and tilts toward the pointer (tuning constants at the top of the file); dragging hands control to the visitor. All of it is off under `prefers-reduced-motion`. The poster `<img>` sits in the prerendered HTML, so crawlers, slow phones and no-WebGL browsers see it. model-viewer hides its poster even when WebGL fails, so the script loads only when a WebGL context exists.
 - `static/models/madlabs-flask-poster.webp` and `static/og/madlabs.png` are renders of the `.glb`. Re-render both when the model changes; they come from model-viewer's `toBlob()` / a 2D canvas, since headless screenshots hang on WebGL pages.
 - Threlte (three.js for Svelte) replaces it only when a feature needs scene control model-viewer lacks (custom lighting, scroll-driven animation). That switch is a grilling decision.
