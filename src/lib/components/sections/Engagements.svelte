@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Card from '#lib/components/ui/Card.svelte';
+	import { Card } from '@hryer/madlabs-design-system/svelte';
 	import SectionHeader from '#lib/components/ui/SectionHeader.svelte';
 	import { ENGAGEMENTS, ENGAGEMENTS_SECTION } from '#lib/constants/services.ts';
 </script>

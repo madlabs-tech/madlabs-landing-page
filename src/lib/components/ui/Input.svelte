@@ -1,4 +1,7 @@
-<!-- Port of the design system's Input. `multiline` renders a <textarea> in the same control styling. -->
+<!--
+	Port of the design system's Input. `multiline` renders a <textarea> in the same control styling.
+	Kept over the package's Svelte Input, which has no textarea and no aria-describedby on the hint.
+-->
 <script lang="ts">
 	import type { HTMLInputAttributes } from 'svelte/elements';
 

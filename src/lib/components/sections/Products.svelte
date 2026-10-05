@@ -1,8 +1,6 @@
 <script lang="ts">
-	import Badge from '#lib/components/ui/Badge.svelte';
-	import Card from '#lib/components/ui/Card.svelte';
+	import { Badge, Card, Tag } from '@hryer/madlabs-design-system/svelte';
 	import SectionHeader from '#lib/components/ui/SectionHeader.svelte';
-	import Tag from '#lib/components/ui/Tag.svelte';
 	import { PRODUCTS, PRODUCTS_SECTION } from '#lib/constants/products.ts';
 </script>
 

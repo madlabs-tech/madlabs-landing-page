@@ -4,8 +4,8 @@
 	import { flip } from 'svelte/animate';
 	import { fly } from 'svelte/transition';
 	import { prefersReducedMotion } from 'svelte/motion';
+	import { Tag } from '@hryer/madlabs-design-system/svelte';
 	import Button from '#lib/components/ui/Button.svelte';
-	import Tag from '#lib/components/ui/Tag.svelte';
 	import { INDEXER_DEMO as D } from '#lib/constants/lab.ts';
 	import { ms } from '#lib/hooks/motion.ts';
 	import { useTicker } from '#lib/hooks/ticker.svelte.ts';

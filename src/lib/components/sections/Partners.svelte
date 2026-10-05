@@ -1,6 +1,6 @@
 <script lang="ts">
+	import { Tag } from '@hryer/madlabs-design-system/svelte';
 	import SectionHeader from '#lib/components/ui/SectionHeader.svelte';
-	import Tag from '#lib/components/ui/Tag.svelte';
 	import { flip } from 'svelte/animate';
 	import { scale } from 'svelte/transition';
 	import { PARTNER_GROUPS, PARTNERS, PARTNERS_SECTION } from '#lib/constants/partners.ts';

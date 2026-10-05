@@ -21,7 +21,8 @@ src/
   routes/                  pages only: +page.svelte, +layout.svelte, +layout.ts (prerender)
   lib/
     components/
-      ui/                  design-system primitives ported to Svelte (Button, Card, Badge, Tag, Icon…)
+      ui/                  our ui components (FlaskModel, SectionHeader) and the design-system primitives
+                           the package's Svelte entry can't serve yet (Button, Dialog, Input, Select, Tabs, Toast)
       sections/            one file per page section (SiteNav, Hero, Services, Lab, …, ContactDialog);
                            a section's private parts go in a subfolder (sections/lab/)
       seo/                 Seo.svelte: <svelte:head> meta, Open Graph, JSON-LD

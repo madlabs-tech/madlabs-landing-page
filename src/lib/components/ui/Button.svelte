@@ -1,4 +1,8 @@
-<!-- Port of the design system's Button: renders <a> when given href, else <button>. -->
+<!--
+	Port of the design system's Button: renders <a> when given href, else <button>.
+	Kept over the package's Svelte Button, which loads its icons from a CDN; this one takes
+	@lucide/svelte components (inline SVG, in the prerendered HTML).
+-->
 <script lang="ts">
 	import type { LucideIcon } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';

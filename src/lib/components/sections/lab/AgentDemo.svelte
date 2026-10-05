@@ -2,9 +2,8 @@
 <script lang="ts">
 	import { Check, Play, RotateCcw, X } from '@lucide/svelte';
 	import { fly } from 'svelte/transition';
-	import Badge from '#lib/components/ui/Badge.svelte';
+	import { Badge, Tag } from '@hryer/madlabs-design-system/svelte';
 	import Button from '#lib/components/ui/Button.svelte';
-	import Tag from '#lib/components/ui/Tag.svelte';
 	import { AGENT_DEMO as A } from '#lib/constants/lab.ts';
 	import { ms } from '#lib/hooks/motion.ts';
 	import { useTicker } from '#lib/hooks/ticker.svelte.ts';

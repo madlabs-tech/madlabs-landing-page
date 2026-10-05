@@ -1,6 +1,7 @@
 <!--
 	Port of the design system's Dialog on the native <dialog> element:
 	showModal() gives focus trapping, Esc to close and inert background for free.
+	Kept over the package's Svelte Dialog (a plain div: no focus trap, CDN close icon, fixed English label).
 -->
 <script lang="ts">
 	import { X } from '@lucide/svelte';
