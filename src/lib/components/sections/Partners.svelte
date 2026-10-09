@@ -4,9 +4,11 @@
 	import { flip } from 'svelte/animate';
 	import { scale } from 'svelte/transition';
 	import { PARTNER_GROUPS, PARTNERS, PARTNERS_SECTION } from '#lib/constants/partners.ts';
+	import { BOOK_CALL_HREF } from '#lib/constants/site.ts';
 	import { ms } from '#lib/hooks/motion.ts';
+	import { openContact } from '#lib/hooks/contact.svelte.ts';
 
-	const { filterLabel, ...header } = PARTNERS_SECTION;
+	const { filterLabel, own, ownLink, ...header } = PARTNERS_SECTION;
 
 	let group = $state<(typeof PARTNER_GROUPS)[number]['id']>('all');
 	let failed = $state<Record<string, boolean>>({});
@@ -17,7 +19,10 @@
 
 <section id="partners" class="section container" aria-labelledby="partners-title">
 	<div class="head">
-		<SectionHeader id="partners-title" {...header} />
+		<div>
+			<SectionHeader id="partners-title" {...header} />
+			<p class="own">{own} <a href={BOOK_CALL_HREF} onclick={openContact}>{ownLink} →</a></p>
+		</div>
 		<div class="filters" role="group" aria-label={filterLabel}>
 			{#each PARTNER_GROUPS as g (g.id)}
 				<Tag selected={group === g.id} onclick={() => (group = g.id)}>
@@ -64,6 +69,15 @@
 		align-items: flex-end;
 		justify-content: space-between;
 		gap: var(--space-6);
+	}
+	.own {
+		margin: var(--space-3) 0 0;
+		max-width: 560px;
+		color: var(--fg-2);
+	}
+	.own a {
+		font-weight: var(--weight-bold);
+		white-space: nowrap;
 	}
 	.filters {
 		display: flex;
