@@ -1,6 +1,6 @@
 # Madlabs landing page
 
-Marketing site for **Madlabs Tech**, an AI and Web3 / blockchain consultancy and product studio working with teams worldwide from its home base in Southeast Asia. The page has two jobs: rank for AI and Web3 consulting searches, then turn visitors into "Book a call".
+Marketing site for **Madlabs Tech**, an AI and Web3 product studio with its home base in Southeast Asia. It builds its own products (Sun, an AI orchestrator; Mercury, an AI marketplace; Earth, an AI ZK wallet) and takes products for teams worldwide from 0 to 1. The page has two jobs: rank for AI and Web3 product studio searches, then turn visitors into "Book a call".
 
 Stack: SvelteKit (Svelte 5 runes, TypeScript), `adapter-static`, every route prerendered. Plain scoped CSS on the Madlabs design-system tokens.
 

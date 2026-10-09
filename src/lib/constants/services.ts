@@ -1,58 +1,58 @@
-import { Bot, Compass, FileCode, Hammer, Network, ScanSearch, ShieldCheck, Workflow } from '@lucide/svelte';
+import { Blocks, Bot, ClipboardList, Compass, Hammer, Layers, Palette, PenTool, Rocket, TrendingUp } from '@lucide/svelte';
 
 export const SERVICES_SECTION = {
-	eyebrow: '// What we do',
-	title: 'AI and Web3 consulting',
-	intro: 'Senior engineers who build this stuff every day. Bring us a problem; we scope it, ship it and hand it over.'
+	title: 'AI & Web3 product development',
+	intro: 'Bring us an idea. We take it from 0 to 1 with the same team that builds our own products.'
 };
 
+// accent picks the icon tile colour: ice for AI, mint for Web3, frost for product and app work.
 export const SERVICES = [
 	{
+		icon: ClipboardList,
+		accent: 'frost',
+		title: 'Product planning',
+		body: 'Pin down who it’s for, what the first version must do and what can wait.'
+	},
+	{
+		icon: Palette,
+		accent: 'frost',
+		title: 'UI/UX research & design',
+		body: 'User interviews, flows and interfaces, tested with real people before they’re built.'
+	},
+	{
+		icon: TrendingUp,
+		accent: 'frost',
+		title: 'SEO/SEM & growth',
+		body: 'Search, ads and analytics set up from launch day, so people find what you shipped.'
+	},
+	{
 		icon: Bot,
-		field: 'AI',
-		title: 'AI agent development',
-		body: 'Agents that call your tools, follow your rules and show every step they take.'
+		accent: 'ice',
+		title: 'AI engineering',
+		body: 'Agents and AI features that call your tools, follow your rules and show every step they take.'
 	},
 	{
-		icon: Workflow,
-		field: 'AI',
-		title: 'AI automation consulting',
-		body: 'Find the workflows where AI pays for itself, then wire models in with approvals and fallbacks.'
+		icon: Blocks,
+		accent: 'mint',
+		title: 'Blockchain & smart contracts',
+		body: 'Contracts on EVM chains and Solana, zero-knowledge privacy and node infrastructure, tested before mainnet.'
 	},
 	{
-		icon: FileCode,
-		field: 'Web3',
-		title: 'Smart contract development',
-		body: 'Contracts for tokens, payments and DeFi on EVM chains and Solana, tested before mainnet.'
-	},
-	{
-		icon: ShieldCheck,
-		field: 'Web3',
-		title: 'Zero-knowledge privacy',
-		body: 'Hide amounts and senders with zero-knowledge proofs, while anyone can still verify the transfer.'
-	},
-	{
-		icon: Network,
-		field: 'Web3',
-		title: 'Blockchain infrastructure',
-		body: 'RPC, indexing and prover nodes for teams that need chains to just work.'
-	},
-	{
-		icon: ScanSearch,
-		field: 'AI + Web3',
-		title: 'Smart contract & AI audits',
-		body: 'Reviews of agent pipelines, smart contracts and ZK circuits, with fixes you can merge.'
+		icon: Layers,
+		accent: 'frost',
+		title: 'Backend, infra, web & mobile',
+		body: 'APIs, cloud infrastructure and the web and mobile apps on top, built for your team to own.'
 	}
 ] as const;
 
 export const ENGAGEMENTS_SECTION = {
-	eyebrow: '// How we work',
-	title: 'Borrow the lab',
-	intro: 'The same people building our products, working on yours.'
+	title: 'From idea to launch',
+	intro: 'One small senior team, from the first sketch to a live MVP and the growth after it.'
 };
 
 export const ENGAGEMENTS = [
-	{ icon: Compass, title: 'Strategy', body: 'Figure out where AI or a chain actually helps, before anyone writes code.' },
-	{ icon: Hammer, title: 'Build', body: 'Small senior squads that design, ship and hand over production systems.' },
-	{ icon: ScanSearch, title: 'Audit', body: 'Reviews of agent pipelines, smart contracts and ZK circuits.' }
+	{ icon: Compass, title: 'Plan', body: 'Agree on the problem, the users and the smallest version worth shipping.' },
+	{ icon: PenTool, title: 'Design', body: 'Research and a clickable prototype you can put in front of users.' },
+	{ icon: Hammer, title: 'Build', body: 'Production code across AI, chain, backend and apps, shipped in small releases.' },
+	{ icon: Rocket, title: 'Launch & grow', body: 'Go live, measure, improve, and hand over docs so your team owns it.' }
 ];

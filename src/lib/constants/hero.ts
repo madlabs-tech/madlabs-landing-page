@@ -1,16 +1,14 @@
 export const HERO = {
-	badge: 'Now building · Sun, our AI orchestrator',
-	eyebrow: '// Mad science for AI & Web3',
 	// The <h1>. Parts with a tone render in that accent colour.
 	title: [
 		{ text: 'AI', tone: 'ice' },
 		{ text: ' & ' },
 		{ text: 'Web3', tone: 'mint' },
-		{ text: ' consultants for teams worldwide' }
+		{ text: ' product studio' }
 	],
-	body: 'Madlabs is a consultancy and product studio based in Southeast Asia. We help teams anywhere ship AI agents and blockchain systems, and we build our own.',
+	body: 'We’re building Sun, Mercury and Earth, our own AI and Web3 products. From our home base in Southeast Asia, we also take products for teams anywhere from 0 to 1: plan, design, build, launch.',
 	primaryCta: 'Book a call',
-	secondaryCta: { href: '#services', label: 'See what we do' },
+	secondaryCta: { href: '#products', label: 'See our products' },
 	flask: {
 		poster: '/models/madlabs-flask-poster.webp',
 		alt: 'The Madlabs flask: a glass lab flask of bubbling ice-blue liquid, with a chain link, an Ether crystal and a Bitcoin coin orbiting above it.',

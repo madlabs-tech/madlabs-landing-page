@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Card, Tag } from '@hryer/madlabs-design-system/svelte';
+	import { Card } from '@hryer/madlabs-design-system/svelte';
 	import SectionHeader from '#lib/components/ui/SectionHeader.svelte';
 	import { SERVICES, SERVICES_SECTION } from '#lib/constants/services.ts';
 </script>
@@ -11,12 +11,7 @@
 		{#each SERVICES as service, i (service.title)}
 			<li class="reveal" style:--i={i % 3}>
 				<Card variant="soft" padding="lg" class="service">
-					<div class="top">
-						<span class={['tile', service.field === 'Web3' ? 'tile--mint' : 'tile--ice']}>
-							<service.icon size={24} aria-hidden="true" />
-						</span>
-						<Tag size="sm">{service.field}</Tag>
-					</div>
+					<span class="tile tile--{service.accent}"><service.icon size={24} aria-hidden="true" /></span>
 					<h3 class="ml-h4">{service.title}</h3>
 					<p>{service.body}</p>
 				</Card>
@@ -38,14 +33,9 @@
 	.grid :global(.service) {
 		height: 100%;
 	}
-	.top {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		margin-bottom: var(--space-5);
-	}
 	.tile {
 		display: grid;
+		margin-bottom: var(--space-5);
 		place-items: center;
 		width: 52px;
 		height: 52px;
@@ -59,6 +49,9 @@
 	}
 	.tile--mint {
 		background: var(--mint-300);
+	}
+	.tile--frost {
+		background: var(--frost-300);
 	}
 	h3 {
 		margin: 0 0 var(--space-2);

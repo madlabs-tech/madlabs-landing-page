@@ -18,9 +18,11 @@
 					<h3 class="ml-display-5">{product.name}</h3>
 					<p class="ml-eyebrow kind">{product.kind}</p>
 					<p class="body">{product.body}</p>
-					<ul class="tags">
-						{#each product.tags as tag (tag)}<li><Tag size="sm">{tag}</Tag></li>{/each}
-					</ul>
+					{#if product.tags.length}
+						<ul class="tags">
+							{#each product.tags as tag (tag)}<li><Tag size="sm">{tag}</Tag></li>{/each}
+						</ul>
+					{/if}
 				</Card>
 			</li>
 		{/each}
@@ -85,14 +87,9 @@
 		font-size: var(--size-body);
 		color: var(--slate-800);
 	}
-	/* "INFRASTRUCTURE" is one long word; shrink it and the card padding on small phones. */
 	@media (max-width: 640px) {
 		.grid :global(.product) {
 			padding: var(--space-6);
-		}
-		h3 {
-			font-size: clamp(22px, 7vw, var(--size-display-5));
-			overflow-wrap: anywhere;
 		}
 	}
 	.tags {

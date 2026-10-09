@@ -1,15 +1,9 @@
-import { BookOpen, Clock, Globe, MapPin, Video } from '@lucide/svelte';
+import { BookOpen, Clock, Video } from '@lucide/svelte';
 
 export const WHERE_SECTION = {
-	eyebrow: '// Where we work',
 	title: 'Worldwide, from Southeast Asia',
 	intro: 'We work remotely with startups and enterprises anywhere in the world, from our home base in Southeast Asia.'
 };
-
-export const WHERE_FACTS = [
-	{ icon: Globe, label: 'Clients worldwide' },
-	{ icon: MapPin, label: 'Home base: Southeast Asia' }
-];
 
 export const WHERE_POINTS = [
 	{
