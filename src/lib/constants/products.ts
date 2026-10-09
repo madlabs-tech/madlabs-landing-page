@@ -18,11 +18,11 @@ export const PRODUCTS = [
 	{
 		icon: Store,
 		name: 'Mercury',
-		kind: 'AI marketplace',
+		kind: 'AI services marketplace',
 		status: 'Upcoming',
 		accent: 'frost',
-		body: 'An AI marketplace, in the works. We’ll share more closer to launch.',
-		tags: []
+		body: 'A secondary market for AI. Sell agents per call, rent out compute for LLMs, or serve your own LLM runtime and charge per request.',
+		tags: ['x402 pay-per-call', 'Agents & LLM runtime', 'Compute rental']
 	},
 	{
 		icon: Wallet,
