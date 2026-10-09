@@ -19,11 +19,11 @@
 <SiteNav />
 <main>
 	<Hero />
+	<Products />
 	<Services />
 	<Lab />
 	<Engagements />
 	<WhereWeWork />
-	<Products />
 	<Partners />
 	<Cta />
 </main>

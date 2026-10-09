@@ -12,7 +12,7 @@ export const BOOK_CALL_HREF = `mailto:${SITE.email}?subject=${encodeURIComponent
 
 export const CTA = {
 	title: 'Got a weird idea?',
-	body: 'Good. Tell us what you’re building. We reply within two working days.',
+	body: 'Good. Tell us what you want to build, from a napkin sketch to a live MVP. We reply within two working days.',
 	button: 'Book a call'
 };
 
@@ -22,7 +22,7 @@ export const CONTACT_FORM = {
 	close: 'Close',
 	name: { label: 'Your name', placeholder: 'Ada Lovelace', error: 'Tell us your name so we know who’s writing.' },
 	company: { label: 'Company', placeholder: 'Optional' },
-	topic: { label: 'What are you building?', options: ['AI agents', 'AI automation', 'Smart contracts', 'ZK / privacy', 'Infra', 'Not sure yet'] },
+	topic: { label: 'What do you need?', options: ['A 0 to 1 build', 'Planning & UI/UX', 'SEO/SEM', 'AI', 'Blockchain', 'Not sure yet'] },
 	budget: { label: 'Budget', options: ['< $25k', '$25k – $100k', '$100k+', 'Not sure yet'] },
 	message: { label: 'Tell us a bit more', placeholder: 'What you’re building, where you’re stuck, and when you’d like to start.' },
 	cancel: 'Cancel',
@@ -50,6 +50,6 @@ export const CONTACT_FORM = {
 };
 
 export const FOOTER = {
-	tagline: 'AI & Web3 consulting · worldwide, from Southeast Asia',
+	tagline: 'AI & Web3 product studio · worldwide, from Southeast Asia',
 	copyright: `© ${new Date().getFullYear()} ${SITE.legalName}`
 };

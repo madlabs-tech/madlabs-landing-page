@@ -40,8 +40,6 @@
 
 	<div class="inner">
 		<div class="copy">
-			<Badge tone="info" live>{HERO.badge}</Badge>
-			<p class="ml-eyebrow eyebrow">{HERO.eyebrow}</p>
 			<h1 class="ml-display-1 title">
 				{#each words as word, i (i)}
 					{#if word.text.trim()}<span class={['word', word.tone]} style:--i={i}>{word.text}</span>{:else}{' '}{/if}
@@ -145,12 +143,8 @@
 	.copy {
 		animation: ml-fade-up 0.7s var(--ease-out) both;
 	}
-	.eyebrow {
-		margin: var(--space-6) 0 0;
-		color: var(--ice-300);
-	}
 	.title {
-		margin: var(--space-4) 0 var(--space-6);
+		margin: 0 0 var(--space-6);
 		font-size: clamp(40px, 6.2vw, 80px);
 		color: #fff;
 		text-wrap: balance;
@@ -331,7 +325,7 @@
 			height: 340px;
 			margin-bottom: 64px;
 		}
-		/* "CONSULTANTS" can't wrap; keep it inside a 320px screen. */
+		/* "PRODUCT" and "STUDIO" can't wrap; keep them inside a 320px screen. */
 		.title {
 			font-size: clamp(32px, 10vw, 48px);
 		}

@@ -1,9 +1,8 @@
 import { ArrowLeftRight, Blocks, Bot, FileCheck, Inbox, MessageSquare, Search, ShieldCheck } from '@lucide/svelte';
 
 export const LAB_SECTION = {
-	eyebrow: '// Try the lab',
 	title: 'Poke the experiments',
-	intro: 'Three small simulations of what we build for clients. Click around: nothing here touches a real model or chain.'
+	intro: 'Three small simulations of the kind of thing we build. Click around: nothing here touches a real model or chain.'
 };
 
 export const LAB_TABS = [

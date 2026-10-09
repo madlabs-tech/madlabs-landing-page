@@ -1,17 +1,11 @@
 <script lang="ts">
 	import SectionHeader from '#lib/components/ui/SectionHeader.svelte';
-	import { WHERE_FACTS, WHERE_POINTS, WHERE_SECTION } from '#lib/constants/whereWeWork.ts';
+	import { WHERE_POINTS, WHERE_SECTION } from '#lib/constants/whereWeWork.ts';
 </script>
 
 <section id="where-we-work" class="band ml-bg-dots-dark ml-on-dark" aria-labelledby="where-we-work-title">
 	<div class="section container">
 		<SectionHeader id="where-we-work-title" {...WHERE_SECTION} />
-
-		<ul class="facts reveal">
-			{#each WHERE_FACTS as fact (fact.label)}
-				<li><fact.icon size={16} aria-hidden="true" />{fact.label}</li>
-			{/each}
-		</ul>
 
 		<ul class="points">
 			{#each WHERE_POINTS as point, i (point.title)}
@@ -28,30 +22,6 @@
 <style>
 	.band {
 		background-color: var(--slate-900);
-	}
-	.facts {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-2);
-		margin: var(--space-8) 0 0;
-		padding: 0;
-		list-style: none;
-	}
-	.facts li {
-		display: inline-flex;
-		align-items: center;
-		gap: 6px;
-		height: 36px;
-		padding: 0 14px;
-		border-radius: var(--radius-pill);
-		border: var(--border-thin) solid var(--glass-border-dark);
-		background: rgba(202, 214, 230, 0.08);
-		font-size: var(--size-sm);
-		font-weight: var(--weight-semibold);
-		color: var(--slate-100);
-	}
-	.facts li :global(svg) {
-		color: var(--mint-300);
 	}
 	.points {
 		display: grid;

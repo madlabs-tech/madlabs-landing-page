@@ -1,11 +1,11 @@
 import { SITE } from './site.ts';
 
 export const SEO = {
-	title: 'AI & Web3 Consultants for Teams Worldwide | Madlabs',
+	title: 'AI & Web3 Product Studio, from 0 to 1 | Madlabs',
 	description:
-		'AI and Web3 consultants for teams worldwide, based in Southeast Asia. We build AI agents, smart contracts, ZK privacy and blockchain infrastructure.',
+		'AI & Web3 product studio based in Southeast Asia. We build our own products and take yours from 0 to 1: planning, UI/UX, SEO/SEM and the full stack.',
 	ogImage: '/og/madlabs.png',
-	ogImageAlt: 'Madlabs: AI & Web3 consultants for teams worldwide'
+	ogImageAlt: 'Madlabs: AI & Web3 product studio'
 };
 
 export const JSON_LD = {
@@ -19,15 +19,20 @@ export const JSON_LD = {
 	image: SITE.url + SEO.ogImage,
 	areaServed: 'Worldwide',
 	knowsAbout: [
-		'AI consulting',
+		'AI product development',
+		'Web3 product development',
+		'MVP development',
+		'Product planning',
+		'UI/UX research and design',
+		'SEO and SEM',
 		'AI agent development',
-		'AI automation',
-		'Web3 consulting',
-		'Blockchain consulting',
+		'Blockchain development',
 		'Smart contract development',
-		'Smart contract audit',
 		'Zero-knowledge proofs',
-		'Blockchain infrastructure'
+		'Backend and cloud infrastructure',
+		'Web and mobile app development',
+		'AI consulting',
+		'Web3 consulting'
 	],
 	...(SITE.socials.length && { sameAs: SITE.socials })
 };
