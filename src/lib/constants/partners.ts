@@ -1,7 +1,7 @@
 export const PARTNERS_SECTION = {
 	title: 'Plug in, or own it',
-	intro: 'Platforms we’ve shipped with, partnered with or integrated, in client work and in our own products.',
-	own: 'Rather own it than rent it? We build white-label versions: your own wallet, payments or automation layer.',
+	intro: 'Pick any platform below and we’ll plug it into your product. We’ve shipped with every one, and bring 8+ years of doing exactly that.',
+	own: 'Rather own it than rent it? We’ll build you a white-label version instead: your own wallet, payments or automation layer.',
 	ownLink: 'Book a call',
 	filterLabel: 'Filter partners by category'
 };
