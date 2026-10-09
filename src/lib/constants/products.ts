@@ -21,7 +21,7 @@ export const PRODUCTS = [
 		kind: 'AI services marketplace',
 		status: 'Upcoming',
 		accent: 'frost',
-		body: 'A marketplace to buy and sell AI services: agents paid per call, compute to run your own LLM, and LLM runtimes their builders serve.',
+		body: 'A secondary market for AI. Sell agents per call, rent out compute for LLMs, or serve your own LLM runtime and charge per request.',
 		tags: ['x402 pay-per-call', 'Agents & LLM runtime', 'Compute rental']
 	},
 	{
