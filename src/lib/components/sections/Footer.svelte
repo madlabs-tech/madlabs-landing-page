@@ -10,7 +10,6 @@
 		<span>{FOOTER.copyright}</span>
 		<nav class="links" aria-label={NAV.footerLabel}>
 			{#each NAV_LINKS as link (link.href)}<a href={link.href}>{link.label}</a>{/each}
-			<a href="mailto:{SITE.email}">{SITE.email}</a>
 		</nav>
 	</div>
 </footer>
