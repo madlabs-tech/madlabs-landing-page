@@ -12,6 +12,7 @@
 	import { Sparkles } from '@lucide/svelte';
 	import { onMount, tick } from 'svelte';
 	import type { MadlabsObjectHandle } from '#lib/three/madlabs-scene.js';
+	import { isMobile } from '#lib/hooks/mobile.svelte.ts';
 
 	type Props = {
 		poster: string;
@@ -65,6 +66,10 @@
 					motion: !matchMedia('(prefers-reduced-motion: reduce)').matches,
 					onStatus: (text) => (status = text)
 				});
+				// Phones and tablets: OrbitControls sets touch-action: none on the canvas (only once, when it connects),
+				// which overrides the runtime's pan-y, so a vertical swipe on the flask couldn't scroll the page.
+				// Put pan-y back: vertical swipes scroll, horizontal drags still orbit, taps still click.
+				if (isMobile()) stage.querySelector('canvas')!.style.touchAction = 'pan-y';
 			} catch {
 				fallback = true; // WebGL context refused at runtime
 			}

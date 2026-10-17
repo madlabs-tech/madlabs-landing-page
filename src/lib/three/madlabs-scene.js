@@ -80,7 +80,7 @@ export function mountMadlabsObject(container, opts = {}) {
 
   // Madlabs addition: with motion off, model time only runs for a moment after the visitor interacts.
   let liveUntil = motion ? Infinity : 0, first = true;
-  const wake = () => (liveUntil = performance.now() + 2500);
+  const wake = () => (liveUntil = Math.max(liveUntil, performance.now() + 2500)); // max: never cut short the endless motion=true loop
   if (!motion) container.addEventListener('pointerdown', wake);
 
   let last = performance.now();

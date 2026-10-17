@@ -10,7 +10,7 @@ Source of truth: `references/madlabs-design-system/`. Read its `readme.md` (cont
 
 ## Using it from Svelte
 
-- **Styles come from the package.** Import `@hryer/madlabs-design-system/styles.css` once in `src/routes/+layout.svelte`. The root JS entry is React; Svelte components come from `@hryer/madlabs-design-system/svelte`. Installing needs a GitHub Packages token; the steps are under "Install" in the readme.
+- **Styles come from the package.** `src/routes/+layout.svelte` imports the package CSS file by file (the parts of its `styles.css`), skipping `tokens/fonts.css`: fonts are self-hosted as woff2 in `static/fonts/` via `src/fonts.css`, with the same family names. When a package update adds a file to `styles.css`, add it there too. The root JS entry is React; Svelte components come from `@hryer/madlabs-design-system/svelte`. Installing needs a GitHub Packages token; the steps are under "Install" in the readme.
 - **Tokens everywhere.** Spacing, radii, colors, shadows, easing and durations use the CSS variables (`--space-*`, `--radius-*`, `--cobalt-500`, `--shadow-pop`, `--ease-spring`…) and the `.ml-*` classes. A raw hex, shadow, or easing curve in our code is a missed token.
 - **Components come from the package first:** `import { Badge, Card } from '@hryer/madlabs-design-system/svelte'` (0.2.0+, Svelte 5 runes, same `.ml-*` markup as React; props in its `svelte/index.d.ts` and `svelte/README.md`).
 - **Local ports** live in `src/lib/components/ui/` only where the package falls short, and each says why in its header: its `Icon` loads Lucide SVGs from unpkg at runtime (we want inline `@lucide/svelte`, in the prerendered HTML), and its Dialog, Tabs and Input miss accessibility our ports have (native `<dialog>` focus trap, arrow-key tabs, textarea, `aria-describedby`, localized labels). So Button, Dialog, Input, Select, Tabs and Toast stay local. Never pass a string `icon`/`iconLeft`/`iconRight` to a package component. When the package catches up, delete the port and switch the import. A new local port follows the React source plus its `.d.ts` and `.prompt.md` in `references/madlabs-design-system/components/<group>/`: same props, same `.ml-*` class output.
@@ -24,7 +24,7 @@ Native first: CSS keyframes from the design system, Svelte transitions, small ho
 
 - **Scroll reveal:** add `class="reveal"` (stagger siblings with `style:--i={i}`). It is a CSS scroll-driven animation in `src/app.css`: content stays visible without support, without JS and under reduced motion, so crawlers always see it.
 - **Svelte transitions/animations** take `duration: ms(n)` from `hooks/motion.ts`, which returns 0 under `prefers-reduced-motion`. The design system's global reduced-motion rule only reaches CSS animations.
-- **Timed demos** use `useTicker` (`hooks/ticker.svelte.ts`). Decorative loops stop under reduced motion; anything the visitor started runs regardless.
+- **Timed demos** use `useTicker` (`hooks/ticker.svelte.ts`). Decorative loops stop under reduced motion; anything the visitor started runs regardless. Continuous loops also hold while offscreen on phones and tablets via `useOnScreen` (`hooks/mobile.svelte.ts`, the shared `(pointer: coarse) and (max-width: 1000px)` check) and resume from the same state.
 - **Parallax** (`{@attach parallax}`) moves decorative layers only, through the `--px`/`--py` CSS variables and the individual `translate` property. Text and controls stay put.
 - **Book a call** links keep their `mailto:` href (the no-JS path) and add `onclick={openContact}` to open the dialog.
 
