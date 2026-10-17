@@ -1,5 +1,7 @@
-# In-container file server (see Dockerfile). TLS, compression and security
-# headers belong to the edge Caddy on the box (hryer/vps-infra), not here.
+# In-container file server (see Dockerfile). TLS and security headers belong to the edge Caddy
+# on the box (hryer/vps-infra), not here. Compression is done once at build time
+# (scripts/precompress.mjs): we serve the .br/.gz siblings, which Caddy's `encode` and
+# Cloudflare pass through, so visitors get brotli for every text file.
 {
 	admin off
 	auto_https off
@@ -10,6 +12,14 @@
 	root * /srv
 	# Hashed build output never changes under the same name.
 	header /_app/immutable/* Cache-Control "public, max-age=31536000, immutable"
+	# Unhashed static files (static/): a week fresh, then served stale while revalidating.
+	@static path /models/* /partners/* /fonts/* /og/* /favicon.svg
+	header @static Cache-Control "public, max-age=604800, stale-while-revalidate=86400"
+	# Pages: always revalidate (cheap 304 via ETag), so a deploy is seen at once.
+	@page not path /_app/immutable/* /models/* /partners/* /fonts/* /og/* /favicon.svg
+	header @page Cache-Control "no-cache"
 	try_files {path} {path}.html {path}/index.html
-	file_server
+	file_server {
+		precompressed br gzip
+	}
 }

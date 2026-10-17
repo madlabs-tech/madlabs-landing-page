@@ -14,7 +14,7 @@ RUN --mount=type=secret,id=npm_token,required=true \
 	&& npm ci --no-audit --no-fund \
 	&& rm ~/.npmrc
 COPY . .
-RUN npm run check && npm run build
+RUN npm run check && npm run build && node scripts/precompress.mjs build
 
 FROM caddy:2.11.4-alpine
 # The official binary carries cap_net_bind_service as a file capability, which
