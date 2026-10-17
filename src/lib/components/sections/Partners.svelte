@@ -15,6 +15,7 @@
 
 	const visible = $derived(PARTNERS.filter((p) => group === 'all' || p.group === group));
 	const count = (id: string) => PARTNERS.filter((p) => p.group === id).length;
+	const slug = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 </script>
 
 <section id="partners" class="section container" aria-labelledby="partners-title">
@@ -39,9 +40,9 @@
 				<a class="partner reveal" style:--i={i % 5} href={partner.domain ? `https://${partner.domain}` : undefined} target="_blank" rel="noopener">
 					<span class="logo">
 						{#if partner.domain && !failed[partner.name]}
-							<!-- ponytail: favicon service as stand-in logos (as in the website kit); swap for official files in static/ when we have them. -->
+							<!-- ponytail: favicons as stand-in logos (as in the website kit), saved once from Google's favicon service into static/partners/ (lossless, native size); swap for official files when we have them. A new partner needs its file there. -->
 							<img
-								src="https://www.google.com/s2/favicons?domain={partner.domain}&sz=128"
+								src="/partners/{slug(partner.name)}.webp"
 								alt=""
 								width="28"
 								height="28"
