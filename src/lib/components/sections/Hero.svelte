@@ -7,6 +7,7 @@
 	import { HERO } from '#lib/constants/hero.ts';
 	import { BOOK_CALL_HREF } from '#lib/constants/site.ts';
 	import { openContact } from '#lib/hooks/contact.svelte.ts';
+	import { useOnScreen } from '#lib/hooks/mobile.svelte.ts';
 	import { parallax } from '#lib/hooks/parallax.ts';
 	import { useTicker } from '#lib/hooks/ticker.svelte.ts';
 
@@ -21,7 +22,9 @@
 	);
 
 	// One clock drives all three specimens. Frozen (on a good-looking frame) under reduced motion.
-	const tick = useTicker(1100, () => !prefersReducedMotion.current);
+	// On mobile it also holds while the hero is scrolled away and picks up where it left off.
+	const onScreen = useOnScreen();
+	const tick = useTicker(1100, () => !prefersReducedMotion.current && onScreen.visible);
 	const t = $derived(tick.count + 5);
 
 	const agentPhase = $derived(t % (agent.tools.length + 2)); // 9 steps, then 2 ticks "finished"
@@ -34,7 +37,7 @@
 	const blockNumber = $derived(block.start + Math.floor(t / (block.cells + 1)));
 </script>
 
-<section class="hero ml-bg-dots-dark ml-on-dark" {@attach parallax}>
+<section class="hero ml-bg-dots-dark ml-on-dark" {@attach parallax} {@attach onScreen.attach}>
 	<div class="blob blob--ice"></div>
 	<div class="blob blob--mint"></div>
 

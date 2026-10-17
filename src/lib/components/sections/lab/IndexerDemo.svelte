@@ -7,6 +7,7 @@
 	import { Tag } from '@hryer/madlabs-design-system/svelte';
 	import Button from '#lib/components/ui/Button.svelte';
 	import { INDEXER_DEMO as D } from '#lib/constants/lab.ts';
+	import { useOnScreen } from '#lib/hooks/mobile.svelte.ts';
 	import { ms } from '#lib/hooks/motion.ts';
 	import { useTicker } from '#lib/hooks/ticker.svelte.ts';
 	import DemoHeader from './DemoHeader.svelte';
@@ -17,7 +18,9 @@
 	let paused = $state(prefersReducedMotion.current);
 	let filter = $state<'all' | Kind>('all');
 
-	const tick = useTicker(1300, () => !paused);
+	// On mobile the stream also holds while it's scrolled away and resumes where it left off.
+	const onScreen = useOnScreen();
+	const tick = useTicker(1300, () => !paused && onScreen.visible);
 	const head = $derived(D.startBlock + tick.count);
 	const blocks = $derived(Array.from({ length: 4 }, (_, i) => makeBlock(head - i)));
 	const visible = $derived(
@@ -64,7 +67,7 @@
 	</Button>
 </DemoHeader>
 
-<div class="body">
+<div class="body" {@attach onScreen.attach}>
 	<dl class="stats">
 		{#each stats as stat (stat.label)}
 			<div>

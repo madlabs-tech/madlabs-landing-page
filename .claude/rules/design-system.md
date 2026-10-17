@@ -24,7 +24,7 @@ Native first: CSS keyframes from the design system, Svelte transitions, small ho
 
 - **Scroll reveal:** add `class="reveal"` (stagger siblings with `style:--i={i}`). It is a CSS scroll-driven animation in `src/app.css`: content stays visible without support, without JS and under reduced motion, so crawlers always see it.
 - **Svelte transitions/animations** take `duration: ms(n)` from `hooks/motion.ts`, which returns 0 under `prefers-reduced-motion`. The design system's global reduced-motion rule only reaches CSS animations.
-- **Timed demos** use `useTicker` (`hooks/ticker.svelte.ts`). Decorative loops stop under reduced motion; anything the visitor started runs regardless.
+- **Timed demos** use `useTicker` (`hooks/ticker.svelte.ts`). Decorative loops stop under reduced motion; anything the visitor started runs regardless. Continuous loops also hold while offscreen on phones and tablets via `useOnScreen` (`hooks/mobile.svelte.ts`, the shared `(pointer: coarse) and (max-width: 1000px)` check) and resume from the same state.
 - **Parallax** (`{@attach parallax}`) moves decorative layers only, through the `--px`/`--py` CSS variables and the individual `translate` property. Text and controls stay put.
 - **Book a call** links keep their `mailto:` href (the no-JS path) and add `onclick={openContact}` to open the dialog.
 
