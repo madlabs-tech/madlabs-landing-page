@@ -134,11 +134,30 @@
 		}
 	}
 	@media (max-width: 640px) {
+		/* Solid behind the floating bar: otherwise the page scrolls through the gap above it and,
+		   on iOS 26 Safari, up under the status bar. Safari also tints the status bar with this colour. */
 		.site-header {
 			padding-inline: var(--space-3);
+			background: var(--slate-900);
+		}
+		/* At the very top it stays clear so the hero's glow runs up behind the bar, then fills in
+		   over the first 88px of scroll (the height the hero slides under the header). */
+		@supports (animation-timeline: scroll()) {
+			@media (prefers-reduced-motion: no-preference) {
+				.site-header {
+					animation: header-fill linear both;
+					animation-timeline: scroll();
+					animation-range: 0 88px;
+				}
+			}
 		}
 		.bar :global(.cta) {
 			display: none;
+		}
+	}
+	@keyframes header-fill {
+		from {
+			background-color: transparent;
 		}
 	}
 	@media (min-width: 1001px) {

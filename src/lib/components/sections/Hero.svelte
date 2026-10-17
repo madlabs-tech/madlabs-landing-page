@@ -312,6 +312,47 @@
 		box-shadow: 0 0 14px color-mix(in srgb, var(--frost-400) 60%, transparent);
 	}
 
+	/*
+	 * Phones and tablets: WebKit paints filter: blur() on the CPU, and these big glows left the page
+	 * blank on fast flick scrolls in iOS Safari. Same glow as a radial gradient instead: the box grows
+	 * by the blur's reach (3σ = 420px, centre unchanged) and the stops trace a disc blurred by 140px.
+	 */
+	@media (pointer: coarse) and (max-width: 1000px) {
+		.blob {
+			box-sizing: content-box;
+			padding: 420px;
+			margin: -420px;
+			filter: none;
+		}
+		.blob--ice {
+			background: radial-gradient(
+				closest-side,
+				color-mix(in srgb, var(--ice-500) 82%, transparent),
+				color-mix(in srgb, var(--ice-500) 71%, transparent) calc(100% - 560px),
+				color-mix(in srgb, var(--ice-500) 56%, transparent) calc(100% - 490px),
+				color-mix(in srgb, var(--ice-500) 39%, transparent) calc(100% - 420px),
+				color-mix(in srgb, var(--ice-500) 23%, transparent) calc(100% - 350px),
+				color-mix(in srgb, var(--ice-500) 11%, transparent) calc(100% - 280px),
+				color-mix(in srgb, var(--ice-500) 4.4%, transparent) calc(100% - 210px),
+				color-mix(in srgb, var(--ice-500) 1.4%, transparent) calc(100% - 140px),
+				transparent
+			);
+		}
+		.blob--mint {
+			background: radial-gradient(
+				closest-side,
+				color-mix(in srgb, var(--mint-500) 68%, transparent),
+				color-mix(in srgb, var(--mint-500) 63%, transparent) calc(100% - 560px),
+				color-mix(in srgb, var(--mint-500) 51%, transparent) calc(100% - 490px),
+				color-mix(in srgb, var(--mint-500) 36%, transparent) calc(100% - 420px),
+				color-mix(in srgb, var(--mint-500) 21%, transparent) calc(100% - 350px),
+				color-mix(in srgb, var(--mint-500) 10%, transparent) calc(100% - 280px),
+				color-mix(in srgb, var(--mint-500) 4.1%, transparent) calc(100% - 210px),
+				color-mix(in srgb, var(--mint-500) 1.3%, transparent) calc(100% - 140px),
+				transparent
+			);
+		}
+	}
 	@media (max-width: 1000px) {
 		.inner {
 			grid-template-columns: 1fr;

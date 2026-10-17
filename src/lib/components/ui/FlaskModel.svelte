@@ -131,6 +131,28 @@
 		animation: glow 6s var(--ease-in-out) infinite;
 		pointer-events: none;
 	}
+	/*
+	 * Phones and tablets: WebKit paints filter: blur() on the CPU, which blanked the page on fast
+	 * flick scrolls in iOS Safari. Same glow as a radial gradient: the box grows by the blur's reach
+	 * (3σ = 270px) and the stops trace the phone-size disc (~110px radius) blurred by 90px.
+	 */
+	@media (pointer: coarse) and (max-width: 1000px) {
+		.flask::before {
+			margin: -270px;
+			filter: none;
+			background: radial-gradient(
+				closest-side,
+				color-mix(in srgb, var(--ice-400) 53%, transparent),
+				color-mix(in srgb, var(--ice-400) 44%, transparent) calc(100% - 315px),
+				color-mix(in srgb, var(--ice-400) 32%, transparent) calc(100% - 270px),
+				color-mix(in srgb, var(--ice-400) 19%, transparent) calc(100% - 225px),
+				color-mix(in srgb, var(--ice-400) 9.3%, transparent) calc(100% - 180px),
+				color-mix(in srgb, var(--ice-400) 3.7%, transparent) calc(100% - 135px),
+				color-mix(in srgb, var(--ice-400) 1.2%, transparent) calc(100% - 90px),
+				transparent
+			);
+		}
+	}
 	@keyframes glow {
 		50% {
 			opacity: 0.5;
