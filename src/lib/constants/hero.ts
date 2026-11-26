@@ -6,7 +6,7 @@ export const HERO = {
 		{ text: 'Web3', tone: 'mint' },
 		{ text: ' product studio' }
 	],
-	body: 'We’re building Sun, Mercury and Earth, our own AI and Web3 products. From our home base in Southeast Asia, we also take products for teams anywhere from 0 to 1: plan, design, build, launch.',
+	body: 'We’re building Ego, Sun and Earth, our own AI and Web3 products. From our home base in Southeast Asia, we also take products for teams anywhere from 0 to 1: plan, design, build, launch.',
 	primaryCta: 'Book a call',
 	secondaryCta: { href: '#products', label: 'See our products' },
 	flask: {

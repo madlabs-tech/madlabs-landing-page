@@ -13,7 +13,7 @@ Goal: rank for AI and Web3 product studio searches worldwide, then convert to "B
 
 ## Keywords
 
-- **Positioning:** a product studio. We build our own AI and Web3 products (Sun, Mercury, Earth) and take products for other teams from 0 to 1. Global, rooted in Southeast Asia: copy speaks to teams anywhere; "Southeast Asia" appears only as the home base. `areaServed` is "Worldwide" and no other regions or countries are named.
+- **Positioning:** a product studio. We build our own AI and Web3 products (Ego, Sun, Earth) and take products for other teams from 0 to 1. Global, rooted in Southeast Asia: copy speaks to teams anywhere; "Southeast Asia" appears only as the home base. `areaServed` is "Worldwide" and no other regions or countries are named.
 - **Primary:** AI product studio · Web3 product studio · AI & Web3 product development · 0 to 1 / MVP development.
 - **Secondary:** "Southeast Asia" as the home base (meta description, hero body, Where we work); AI and Web3 consulting terms.
 - **Services:** product planning, UI/UX research and design, SEO/SEM, AI engineering (agents), blockchain and smart contracts, backend, infra, web and mobile.
@@ -38,4 +38,4 @@ The exact strings live in `src/lib/constants/seo.ts`; this list is the strategy 
 
 ## Voice
 
-Follow CONTENT FUNDAMENTALS in `references/madlabs-design-system/readme.md` (we/you, sentence case, 2–6 word headlines, verb-first buttons, real numbers in mono, one joke per screen). Demos and examples stay region-neutral (English, card payments): no local languages, payment rails or chat apps. Sun's product facts come from that readme and `references/sun-orchestrator-products/`; claims stay within what those sources state. Mercury (AI services marketplace, a secondary market where people buy and sell agents paid per call over x402, rented compute to run their own LLM, and LLM runtimes such as routers that builders serve from their own servers and charge per request) and Earth (AI ZK wallet: self-custody, zero-knowledge privacy) are upcoming, so their copy says no more than that.
+Follow CONTENT FUNDAMENTALS in `references/madlabs-design-system/readme.md` (we/you, sentence case, 2–6 word headlines, verb-first buttons, real numbers in mono, one joke per screen). Demos and examples stay region-neutral (English, card payments): no local languages, payment rails or chat apps. Sun's product facts come from that readme and `references/sun-orchestrator-products/`; Ego's from its landing page (https://madlabs.tech/ego, repo `ego-landing`); claims stay within what those sources state. Product cards link to each product's page: Ego → `https://madlabs.tech/ego`, Sun → `https://madlabs.tech/sun`. Earth (AI ZK wallet: self-custody, zero-knowledge privacy) is upcoming, so its copy says no more than that.

@@ -1,4 +1,4 @@
-import { Store, Wallet, Workflow } from '@lucide/svelte';
+import { BrainCircuit, Wallet, Workflow } from '@lucide/svelte';
 
 export const PRODUCTS_SECTION = {
 	title: 'Things we’re cooking',
@@ -7,8 +7,19 @@ export const PRODUCTS_SECTION = {
 
 export const PRODUCTS = [
 	{
+		icon: BrainCircuit,
+		name: 'Ego',
+		href: 'https://madlabs.tech/ego',
+		kind: 'AI second brain',
+		status: 'Out now on macOS',
+		accent: 'frost',
+		body: 'A Mac app that keeps your notes and runs your coding agents side by side, so Claude and GPT work from the same context.',
+		tags: ['Markdown notes', 'Claude Code & Codex', 'Agent failover']
+	},
+	{
 		icon: Workflow,
 		name: 'Sun',
+		href: 'https://madlabs.tech/sun',
 		kind: 'AI orchestrator',
 		status: 'Open beta soon',
 		accent: 'ice',
@@ -16,17 +27,9 @@ export const PRODUCTS = [
 		tags: ['Source-available', 'Self-hosted', 'Agent failover']
 	},
 	{
-		icon: Store,
-		name: 'Mercury',
-		kind: 'AI services marketplace',
-		status: 'Upcoming',
-		accent: 'frost',
-		body: 'A secondary market for AI. Sell agents per call, rent out compute for LLMs, or serve your own LLM runtime and charge per request.',
-		tags: ['x402 pay-per-call', 'Agents & LLM runtime', 'Compute rental']
-	},
-	{
 		icon: Wallet,
 		name: 'Earth',
+		href: undefined,
 		kind: 'AI ZK wallet',
 		status: 'Upcoming',
 		accent: 'mint',
