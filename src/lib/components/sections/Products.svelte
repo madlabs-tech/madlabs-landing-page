@@ -15,7 +15,9 @@
 						<span class="tile"><product.icon size={26} aria-hidden="true" /></span>
 						<Badge tone="solid" class="status">{product.status}</Badge>
 					</div>
-					<h3 class="ml-display-5">{product.name}</h3>
+					<h3 class="ml-display-5">
+						{#if product.href}<a href={product.href}>{product.name}</a>{:else}{product.name}{/if}
+					</h3>
 					<p class="ml-eyebrow kind">{product.kind}</p>
 					<p class="body">{product.body}</p>
 					{#if product.tags.length}
@@ -45,8 +47,27 @@
 	.grid :global(.product) {
 		display: flex;
 		flex-direction: column;
+		position: relative;
 		min-height: 340px;
 		color: var(--slate-900);
+	}
+	h3 a {
+		color: inherit;
+		text-decoration: none;
+	}
+	/* the name's link covers the whole card */
+	h3 a::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+	}
+	h3 a:focus-visible {
+		outline: none;
+	}
+	.grid :global(.product:has(a:focus-visible)) {
+		outline: 3px solid var(--ink);
+		outline-offset: 4px;
 	}
 	.grid :global(.product--ice) {
 		background: var(--ice-300);
